@@ -44,4 +44,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    //user has one branch
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'manager_id');
+    }
 }
