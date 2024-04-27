@@ -24,4 +24,9 @@ class Branch extends Model
     {
         return $this->belongsTo(User::class, 'manager_id');
     }
+
+    public function cars(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Car::class);
+    }
 }
