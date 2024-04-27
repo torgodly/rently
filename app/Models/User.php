@@ -46,9 +46,14 @@ class User extends Authenticatable
     }
 
 
-    //user has one branch
     public function branch()
     {
         return $this->hasOne(Branch::class, 'manager_id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }
