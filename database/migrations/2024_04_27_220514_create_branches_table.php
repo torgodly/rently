@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('city');
             $table->string('country');
+            $table->string('city');
             $table->foreignId('manager_id')->constrained('users');
             $table->boolean('status')->default(true);
             $table->timestamps();

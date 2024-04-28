@@ -8,5 +8,13 @@
     "Password confirmation": "تأكيد كلمة المرور",
     "Type": "النوع",
     "Phone": "الهاتف",
-    "Active": "نشط"
+    "Active": "نشط",
+    "created_at": "تاريخ الإنشاء",
+    "updated_at": "تاريخ التحديث",
+    "Country": "الدولة",
+    "City": "المدينة",
+    "Manager": "المدير",
+    "Status": "الحالة",
+    "Branch": "الفرع",
+    "Branches": "الفروع"
 }
