@@ -23,7 +23,7 @@ class OrderFactory extends Factory
             'return_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
             'longitude' => $this->faker->longitude,
             'latitude' => $this->faker->latitude,
-            'order_status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'order_status' => $this->faker->randomElement(['booked', 'in_progress', 'completed', 'cancelled']),
         ];
     }
 }
