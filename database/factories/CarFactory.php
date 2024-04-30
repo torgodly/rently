@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Car;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -30,5 +31,15 @@ class CarFactory extends Factory
             'branch_id' => \App\Models\Branch::factory(),
             'description' => $this->faker->text,
         ];
+
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Car $car) {
+            $car->addMediaFromUrl('https://via.placeholder.com/400')
+                ->toMediaCollection('images', 'public');
+
+        });
     }
 }
