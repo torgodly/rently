@@ -16,11 +16,14 @@ return new class extends Migration
             $table->string('make');
             $table->string('model');
             $table->year('manufacturing_year');
+            $table->string('body_style');
             $table->string('color');
             $table->string('license_plate')->unique();
             $table->unsignedInteger('mileage');
+            $table->unsignedInteger('mileage_to_service');
+            $table->integer('seats');
             $table->enum('transmission_type', ['automatic', 'manual']);
-            $table->enum('fuel_type', ['gasoline', 'diesel', 'electric']);
+            $table->string('fuel_type', );
             $table->decimal('price_per_day', 8, 2);
             $table->boolean('available')->default(true);
             $table->foreignId('branch_id')->constrained();

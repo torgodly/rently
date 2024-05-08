@@ -14,7 +14,8 @@
         "filament/spatie-laravel-media-library-plugin": "^3.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
-        "parfaitementweb/filament-country-field": "^2.1"
+        "parfaitementweb/filament-country-field": "^2.1",
+        "ryangjchandler/blade-tabler-icons": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

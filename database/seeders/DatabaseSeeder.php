@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Branch;
-use App\Models\Car;
+use App\Models\CarReference;
 use App\Models\Order;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,8 @@ class DatabaseSeeder extends Seeder
     {
 //        Car::factory(1)->create();
         // User::factory(10)->create();
+
+        $this->call(CarReferencesTableSeeder::class);
         Order::factory(10)->create();
         User::factory()->create([
             'name' => 'Test User',

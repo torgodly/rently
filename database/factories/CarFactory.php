@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Car;
+use App\Models\CarReference;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Car>
@@ -17,13 +19,17 @@ class CarFactory extends Factory
      */
     public function definition(): array
     {
+        $type = CarReference::inRandomOrder()->first();
         return [
-            'make' => $this->faker->randomElement(['Toyota', 'Ford', 'Chevrolet', 'Nissan', 'Honda']),
-            'model' => $this->faker->word,
+            'make' => $type->make,
+            'model' => $type->model,
             'manufacturing_year' => $this->faker->year,
+            'body_style' => json_decode($type->body_style)[array_rand(json_decode($type->body_style))],
             'color' => $this->faker->colorName,
             'license_plate' => $this->faker->unique()->regexify('[A-Z]{3}-[0-9]{3}'),
             'mileage' => $this->faker->numberBetween(0, 200000),
+            'mileage_to_service' => $this->faker->numberBetween(0, 10000),
+            'seats' => $this->faker->numberBetween(2, 8),
             'transmission_type' => $this->faker->randomElement(['automatic', 'manual']),
             'fuel_type' => $this->faker->randomElement(['gasoline', 'diesel', 'electric']),
             'price_per_day' => $this->faker->randomFloat(2, 50, 500),
@@ -36,10 +42,26 @@ class CarFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating(function (Car $car) {
-            $car->addMediaFromUrl('https://via.placeholder.com/400')
-                ->toMediaCollection('images', 'public');
+        $carImagesPath = 'cars'; // Path to the directory containing car images
 
+        // Get all image files from the directory
+        $carImages = Storage::files($carImagesPath);
+
+        return $this->afterCreating(function (Car $car) use (&$carImages) {
+            // Choose a random image for the current car
+            $randomIndex = array_rand($carImages);
+            $randomImage = $carImages[$randomIndex];
+
+            // Remove the used image from the array to prevent reuse
+            unset($carImages[$randomIndex]);
+
+            // Copy the image file to the storage directory
+            $copiedImagePath = 'cars_images/' . basename($randomImage);
+            Storage::copy($randomImage, $copiedImagePath);
+
+            // Add the copied image to the media collection of the current car
+            $car->addMedia(storage_path('app/' . $copiedImagePath))
+                ->toMediaCollection('car_images', 'public');
         });
     }
 }
