@@ -12,13 +12,14 @@ class ListCars extends ListRecords
 {
     protected static string $resource = CarResource::class;
 
+
     protected function getHeaderActions(): array
     {
         return [
             Actions\CreateAction::make(),
-//            ImportAction::make()
-//                ->importer(CarReferenceImporter::class)
-//                ->label('Import Car References')
+            ImportAction::make()
+                ->importer(CarReferenceImporter::class)
+                ->label('Import Car References')
         ];
     }
 }

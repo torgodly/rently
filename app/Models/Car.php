@@ -40,4 +40,10 @@ class Car extends Model implements HasMedia
     {
         return $this->getFirstMediaUrl('car_images');
     }
+
+    //name
+    protected function getNameAttribute(): string
+    {
+        return $this->make . ' ' . $this->model . ' ' . $this->manufacturing_year;
+    }
 }

@@ -50,13 +50,13 @@ class CarResource extends Resource
                                 ->label('Make')
                                 ->options(CarReference::all()->pluck('make', 'make')->toArray())
                                 ->searchable()
+                                ->live()
                                 ->optionsLimit(12000)
                                 ->required(),
                             Forms\Components\Select::make('model')
                                 ->translateLabel()
-                                ->live()
                                 ->label('Model')
-                                ->options(CarReference::all()->pluck('model', 'model')->toArray())
+                                ->options(fn(Forms\Get $get) => CarReference::where('make', $get('make'))->pluck('model', 'model')->toArray())
                                 ->searchable()
                                 ->optionsLimit(12000)
                                 ->required(),
@@ -66,7 +66,7 @@ class CarResource extends Resource
                                 ->label('Manufacturing Year')
                                 ->searchable()
                                 ->optionsLimit(12000)
-                                ->options(CarReference::all()->pluck('year', 'year')->toArray())
+                                ->options(fn(Forms\Get $get) => CarReference::where('model', $get('model'))->pluck('year', 'year')->toArray())
                                 ->required(),
                             Forms\Components\Select::make('body_style')
                                 ->translateLabel()

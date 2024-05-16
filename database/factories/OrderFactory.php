@@ -20,9 +20,10 @@ class OrderFactory extends Factory
             'user_id' => \App\Models\User::factory(),
             'car_id' => \App\Models\Car::factory(),
             'pickup_date' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'pickup_location_id' => \App\Models\Location::factory(),
             'return_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
-            'longitude' => $this->faker->longitude,
-            'latitude' => $this->faker->latitude,
+            'return_location_id' => \App\Models\Location::factory(),
+            'days_booked' => $this->faker->numberBetween(1, 30),
             'order_status' => $this->faker->randomElement(['booked', 'in_progress', 'completed', 'cancelled']),
         ];
     }

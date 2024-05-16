@@ -15,9 +15,10 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('car_id')->constrained()->onDelete('cascade');
             $table->dateTime('pickup_date');
+            $table->foreignId('pickup_location_id')->constrained('locations');
             $table->dateTime('return_date');
-            $table->string('longitude');
-            $table->string('latitude');
+            $table->foreignId('return_location_id')->constrained('locations');
+            $table->integer('days_booked');
             $table->enum('order_status', ['booked', 'in_progress', 'completed', 'cancelled'])->default('booked');
             $table->timestamps();
         });

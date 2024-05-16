@@ -36,5 +36,17 @@
     "Seats": "المقاعد",
     "Transmission Type": "نوع الجير",
     "Mileage To Service": "المسافة المتبقية للصيانة",
-    "Body Style": "نوع الهيكل"
+    "Body Style": "نوع الهيكل",
+    "Client": "العميل",
+    "The Car": "السيارة",
+    "Pickup Date": "تاريخ الاستلام",
+    "Return Date": "تاريخ الإرجاع",
+    "Pickup location": "موقع الاستلام",
+    "Return location": "موقع الإرجاع",
+    "Days booked": "الأيام المحجوزة",
+    "Order status": "حالة الطلب",
+    "locations": "المواقع",
+    "Location": "الموقع",
+    "Orders": "الطلبات",
+    "Order": "الطلب"
 }
