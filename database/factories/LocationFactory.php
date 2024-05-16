@@ -31,6 +31,7 @@ class LocationFactory extends Factory
             ),
             'long' => $this->faker->longitude,
             'lat' => $this->faker->latitude,
+            'branch_id' => 1
         ];
     }
 }

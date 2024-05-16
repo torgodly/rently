@@ -48,5 +48,7 @@
     "locations": "المواقع",
     "Location": "الموقع",
     "Orders": "الطلبات",
-    "Order": "الطلب"
+    "Order": "الطلب",
+    "Open in Google Map": "فتح في خرائط جوجل",
+    "Create Location": "إنشاء موقع"
 }
