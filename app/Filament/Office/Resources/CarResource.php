@@ -2,9 +2,9 @@
 
 namespace App\Filament\Office\Resources;
 
-use App\Filament\Office\Resources\LocationResource\Pages;
-use App\Filament\Office\Resources\LocationResource\RelationManagers;
-use App\Models\Location;
+use App\Filament\Office\Resources\CarResource\Pages;
+use App\Filament\Office\Resources\CarResource\RelationManagers;
+use App\Models\Car;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LocationResource extends Resource
+class CarResource extends Resource
 {
-    protected static ?string $model = Location::class;
+    protected static ?string $model = Car::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-
     public static function getNavigationGroup(): ?string
     {
         return __('Management');
@@ -27,28 +25,30 @@ class LocationResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('location');
+        return __('Car');
     }
 
     public static function getPluralLabel(): ?string
     {
-        return __('locations');
+        return __('Cars');
     }
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(Location::FromField());
+            ->schema(Car::FromFields())->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns(Location::TableColumns())
+            ->query(Car::query()->myCars())
+            ->content(view('car'))
             ->filters([
-                //
+
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -68,9 +68,10 @@ class LocationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLocations::route('/'),
-            'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'index' => Pages\ListCars::route('/'),
+            'create' => Pages\CreateCar::route('/create'),
+            'view' => Pages\ViewCar::route('/{record}'),
+            'edit' => Pages\EditCar::route('/{record}/edit'),
         ];
     }
 }

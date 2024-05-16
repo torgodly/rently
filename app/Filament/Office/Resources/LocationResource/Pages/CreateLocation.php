@@ -14,8 +14,6 @@ class CreateLocation extends CreateRecord
     {
         unset($data['location']);
 
-        $data['branch_id'] = auth()->user()->branch->id;
-
         return $data;
     }
 

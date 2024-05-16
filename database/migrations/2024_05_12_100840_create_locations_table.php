@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('long');
             $table->string('lat');
-            $table->foreignId('branch_id')->constrained();
             $table->timestamps();
         });
     }

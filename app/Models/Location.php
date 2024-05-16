@@ -125,9 +125,4 @@ class Location extends Model
         return $this->belongsTo(Branch::class);
     }
 
-    //my location scope
-    public function scopeMyLocation($query)
-    {
-        return $query->where('branch_id', auth()->user()->branch->id);
-    }
 }
