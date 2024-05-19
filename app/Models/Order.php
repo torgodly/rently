@@ -25,7 +25,7 @@ class Order extends Model
         'pickup_date',
         'return_date',
         'location',
-        'order_status',
+        'status',
     ];
 
     public static function TableColumns()
@@ -52,7 +52,15 @@ class Order extends Model
                 ->numeric()
                 ->sortable(),
 
-            TextColumn::make('order_status')
+            TextColumn::make('status')
+                ->formatStateUsing(fn(string $state): string => __($state))
+                ->color(fn(string $state): string => match ($state) {
+                    'Pending' => 'gray',
+                    'Confirmed' => 'blue',
+                    'In Progress' => 'yellow',
+                    'Completed' => 'green',
+                    'Cancelled' => 'red',
+                })
                 ->translateLabel()
                 ->badge(),
             TextColumn::make('created_at')
@@ -75,8 +83,7 @@ class Order extends Model
                 Section::make(__('Order Info'))->schema([
                     Fieldset::make(__('Identifier'))->schema([
                         ImageEntry::make('user.passport')
-                            ->label('Passport')
-                            ->translateLabel()
+                            ->hiddenLabel()
                             ->height(500)
                             ->columnSpanFull()
                     ]),
@@ -122,9 +129,17 @@ class Order extends Model
                             TextEntry::make('days_booked')
                                 ->label('Days Booked')
                                 ->translateLabel(),
-                            TextEntry::make('order_status')
+                            TextEntry::make('status')
                                 ->badge()
                                 ->label('Order Status')
+                                ->formatStateUsing(fn(string $state): string => __($state))
+                                ->color(fn(string $state): string => match ($state) {
+                                    'Pending' => 'gray',
+                                    'Confirmed' => 'blue',
+                                    'In Progress' => 'yellow',
+                                    'Completed' => 'green',
+                                    'Cancelled' => 'red',
+                                })
                                 ->translateLabel(),
                         ])
                     ]),
@@ -137,7 +152,7 @@ class Order extends Model
                         ->view('price')
 
                 ]),
-                Section::make('Car Info')->schema([
+                Section::make(__('Car Info'))->schema([
                     CarEntry::make('car')
                         ->hiddenLabel()
                 ])
@@ -155,7 +170,7 @@ class Order extends Model
     public function getPriceAttribute()
     {
         $days = Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date));
-        return round($days * $this->car->price_per_day, 2) . 'د.ل';
+        return round($days * $this->car->price_per_day, 2);
     }
 
     public function pickupLocation()
@@ -181,6 +196,32 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+
+    public function Confirmed(): void
+    {
+        try {
+            $this->user->withdraw($this->price);
+            // If withdrawal succeeds, update order status to 'Confirmed'
+            $this->update([
+                'status' => 'Confirmed'
+            ]);
+        } catch (\Exception $e) {
+            // If withdrawal fails (insufficient balance), update order status to 'Cancelled'
+            $this->update([
+                'status' => 'Cancelled'
+            ]);
+        }
+    }
+
+    //Inprogress
+    public function inProgress(): void
+    {
+        $this->update([
+            'status' => 'In Progress'
+        ]);
     }
 
 }

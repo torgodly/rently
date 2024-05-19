@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->dateTime('return_date');
             $table->foreignId('return_location_id')->constrained('locations');
             $table->integer('days_booked');
-            $table->enum('order_status', ['booked', 'in_progress', 'completed', 'cancelled'])->default('booked');
+            $table->enum('status', ["Pending","Confirmed","In Progress","Completed","Cancelled"])->default('Pending');
             $table->timestamps();
         });
     }

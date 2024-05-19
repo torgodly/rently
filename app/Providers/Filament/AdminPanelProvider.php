@@ -27,9 +27,16 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->id('admin')
             ->path('admin')
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('2.4rem')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
+                'gray' => Color::Gray,
+                'blue' => Color::Blue,
+                'yellow' => Color::Yellow,
+                'red' => Color::Red,
+                'green' => Color::Green,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

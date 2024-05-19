@@ -37,66 +37,13 @@ class BranchResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->translateLabel()
-                    ->required()
-                    ->maxLength(255),
-                Country::make('country')
-                    ->translateLabel()->searchable(),
-                Forms\Components\TextInput::make('city')
-                    ->translateLabel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('manager_id')
-                    ->translateLabel()
-                    ->required()
-                    ->native(false)
-                    ->searchable()
-                    ->preload()
-                    ->relationship(
-                        'manager',
-                        'name',
-                        modifyQueryUsing: function (Builder $query, ?Branch $record) {
-                            $query->where('type', 'manager')
-                                ->whereDoesntHave('branch');
-
-                            if ($record !== null) {
-                                $query->orWhere('type', 'manager')
-                                    ->whereHas('branch', function ($q) use ($record) {
-                                        $q->where('id', $record->id);
-                                    });
-                            }
-                        }
-                    ),
-
-            ]);
+            ->schema(Branch::FormFields());
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')->translateLabel()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')->translateLabel()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('country')->translateLabel()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('manager.name')
-                    ->translateLabel()
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\ToggleColumn::make('status')->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')->translateLabel()
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')->translateLabel()
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ->columns(Branch::TableColumns())
             ->filters([
                 //
             ])

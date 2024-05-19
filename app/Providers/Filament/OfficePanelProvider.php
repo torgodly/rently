@@ -27,9 +27,15 @@ class OfficePanelProvider extends PanelProvider
             ->path('office')
             ->colors([
                 'primary' => Color::Amber,
+                'gray' => Color::Gray,
+                'blue' => Color::Blue,
+                'yellow' => Color::Yellow,
+                'red' => Color::Red,
+                'green' => Color::Green,
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
+
             ->discoverResources(in: app_path('Filament/Office/Resources'), for: 'App\\Filament\\Office\\Resources')
             ->discoverPages(in: app_path('Filament/Office/Pages'), for: 'App\\Filament\\Office\\Pages')
             ->pages([

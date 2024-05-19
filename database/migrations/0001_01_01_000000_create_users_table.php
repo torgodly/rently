@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('type')->default(UserType::User);
             $table->boolean('active')->default(true);
             $table->integer('points')->default(0);
+            $table->integer('balance')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

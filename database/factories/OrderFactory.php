@@ -24,7 +24,7 @@ class OrderFactory extends Factory
             'return_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
             'return_location_id' => \App\Models\Location::factory(),
             'days_booked' => $this->faker->numberBetween(1, 30),
-            'order_status' => $this->faker->randomElement(['booked', 'in_progress', 'completed', 'cancelled']),
+            'status' => $this->faker->randomElement(["Pending","Confirmed","In Progress","Completed","Cancelled"]),
         ];
     }
 }
