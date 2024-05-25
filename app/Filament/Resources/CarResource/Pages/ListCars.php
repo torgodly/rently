@@ -17,9 +17,9 @@ class ListCars extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-            ImportAction::make()
-                ->importer(CarReferenceImporter::class)
-                ->label('Import Car References')
+//            ImportAction::make()
+//                ->importer(CarReferenceImporter::class)
+//                ->label('Import Car References')
         ];
     }
 }

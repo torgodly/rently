@@ -6,7 +6,6 @@ use App\Filament\Resources\CarResource\Pages;
 use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
 use App\Models\CarReference;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -44,7 +43,14 @@ class CarResource extends Resource
         return $table
             ->content(view('car'))
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('make')
+                    ->options(CarReference::all()->pluck('make', 'make')->toArray())
+                    ->searchable()
+                    ->optionsLimit(12000),
+                Tables\Filters\SelectFilter::make('make')
+                    ->options(CarReference::all()->pluck('make', 'make')->toArray())
+                    ->searchable()
+                    ->optionsLimit(12000)
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
