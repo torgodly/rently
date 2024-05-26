@@ -56,9 +56,9 @@ class Order extends Model
                 ->formatStateUsing(fn(string $state): string => __($state))
                 ->color(fn(string $state): string => match ($state) {
                     'Pending' => 'gray',
-                    'Confirmed' => 'blue',
-                    'In Progress' => 'yellow',
-                    'Completed' => 'green',
+                    'Confirmed' => 'yellow',
+                    'Active' => 'green',
+                    'Completed' => 'blue',
                     'Cancelled' => 'red',
                 })
                 ->translateLabel()
@@ -103,7 +103,24 @@ class Order extends Model
                                     ->badge()
                                     ->icon('tabler-trophy')
                                     ->label('Points')
-                                    ->translateLabel()
+                                    ->translateLabel(),
+//                                TextEntry::make('user.passport')
+//                                    ->placeholder('passport')
+//                                    ->translateLabel()
+//                                    ->action(Action::make('delete')
+//                                        ->fillForm(fn($record) => [
+//                                            'passport' => $record->user->passport,
+//                                        ])
+//                                        ->modalCancelAction(false)
+//                                        ->modalSubmitAction(false)
+//                                        ->form([
+//                                            ViewField::make('passport')
+//                                                ->view('passport')
+//                                                ->translateLabel(),
+//                                        ])
+//                                    )
+//                                    ->translateLabel(),
+
                             ])
                         ]),
                     Fieldset::make(__('Order'))->schema([
@@ -135,9 +152,9 @@ class Order extends Model
                                 ->formatStateUsing(fn(string $state): string => __($state))
                                 ->color(fn(string $state): string => match ($state) {
                                     'Pending' => 'gray',
-                                    'Confirmed' => 'blue',
-                                    'In Progress' => 'yellow',
-                                    'Completed' => 'green',
+                                    'Confirmed' => 'yellow',
+                                    'Active' => 'green',
+                                    'Completed' => 'blue',
                                     'Cancelled' => 'red',
                                 })
                                 ->translateLabel(),
@@ -150,6 +167,11 @@ class Order extends Model
                 Section::make(__('Price'))->schema([
                     ViewEntry::make('price')
                         ->view('price')
+
+                ]),
+                Section::make(__('Status'))->schema([
+                    ViewEntry::make('status')
+                        ->view('status')
 
                 ]),
                 Section::make(__('Car Info'))->schema([
@@ -199,7 +221,6 @@ class Order extends Model
     }
 
 
-
     public function Confirmed(): void
     {
         try {
@@ -217,10 +238,31 @@ class Order extends Model
     }
 
     //Inprogress
-    public function inProgress(): void
+    public function Active(): void
     {
         $this->update([
-            'status' => 'In Progress'
+            'status' => 'Active'
+        ]);
+    }
+
+    //Completed
+    public function Completed($mileage): void
+    {
+        $this->update([
+            'status' => 'Completed'
+        ]);
+        $mileage_drove = $mileage - $this->car->mileage;
+        if ($mileage_drove > $this->car->mileage_to_service) {
+            $this->car->update([
+                'mileage' => $mileage,
+                'mileage_to_service' => 0,
+                'status' => 'service'
+            ]);
+            return;
+        }
+        $this->car->update([
+            'mileage' => $mileage,
+            'mileage_to_service' => $this->car->mileage_to_service - $mileage_drove
         ]);
     }
 

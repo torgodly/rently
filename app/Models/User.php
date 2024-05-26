@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use function Laravel\Prompts\error;
 
 class User extends Authenticatable implements  HasAvatar
 {
@@ -55,10 +56,13 @@ class User extends Authenticatable implements  HasAvatar
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function withdraw($amount)
     {
         if ($this->balance < $amount) {
-            return false;
+            throw new \RuntimeException('Insufficient balance.'); // Throw an exception if there's insufficient balance
         }
         $this->balance -= $amount;
         $this->save();

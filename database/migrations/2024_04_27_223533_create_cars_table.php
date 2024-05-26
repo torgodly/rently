@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -23,11 +22,12 @@ return new class extends Migration
             $table->unsignedInteger('mileage_to_service');
             $table->integer('seats');
             $table->enum('transmission_type', ['automatic', 'manual']);
-            $table->string('fuel_type', );
+            $table->string('fuel_type',);
             $table->decimal('price_per_day', 8, 2);
             $table->boolean('available')->default(true);
             $table->foreignId('branch_id')->constrained();
             $table->text('description')->nullable();
+            $table->enum('status', ['active', 'service'])->default('active');
             $table->timestamps();
         });
     }

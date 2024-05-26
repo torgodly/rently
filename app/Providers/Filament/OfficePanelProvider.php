@@ -40,6 +40,7 @@ class OfficePanelProvider extends PanelProvider
                 'yellow' => Color::Yellow,
                 'red' => Color::Red,
                 'green' => Color::Green,
+
             ])
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.4rem')

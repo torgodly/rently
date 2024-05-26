@@ -85,5 +85,13 @@
     "Enter the expiry date of the voucher": "أدخل تاريخ انتهاء الكرت",
     "Generate a new voucher": "إنشاء كرت جديد",
     "Code Copied": "تم نسخ الكود",
-    "Redeemed At": "تم استخدامه في"
+    "Redeemed At": "تم استخدامه في",
+    "Are you sure you want to start this order?, Please confirm that the presented ID matches the recipient for this order.": "هل أنت متأكد أنك تريد بدء هذا الطلب؟، يرجى تأكيد أن الهوية المعروضة تتطابق مع المستلم لهذا الطلب.",
+    "Start Order": "بدء الطلب",
+    "Order Started": "تم بدء الطلب",
+    "The order has been started": "تم بدء الطلب",
+    "Complete order": "إكمال الطلب",
+    "Are you sure you want to complete this order?, Please enter the current mileage of the car.": "هل أنت متأكد أنك تريد إكمال هذا الطلب؟، يرجى إدخال المسافة المقطوعة الحالية للسيارة.",
+    "Order Completed": "تم إكمال الطلب",
+    "The order has been completed": "تم إكمال الطلب"
 }

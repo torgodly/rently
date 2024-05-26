@@ -36,7 +36,9 @@ class Car extends Model implements HasMedia
         'available',
         'branch_id',
         'description',
-        'seats'
+        'seats',
+        'body_style',
+        'status',
     ];
 
     public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
