@@ -71,5 +71,19 @@
     "The order has been cancelled Because Clint Doesn't have the balance": "تم إلغاء الطلب لأن العميل ليس لديه رصيد",
     "Your order has been cancelled Because You Do't have the balance": "تم إلغاء الطلب لأنك ليس لديك رصيد",
     "Order Cancelled": "تم إلغاء الطلب",
-    "Order Accepted": "تم قبول الطلب"
+    "Order Accepted": "تم قبول الطلب",
+    "Vouchers": "كروت الشحن",
+    "Generate Voucher": "إنشاء كرت شحن",
+    "Code": "الكود",
+    "Value": "القيمة",
+    "Expiry Date": "تاريخ الانتهاء",
+    "Enter the value": "أدخل القيمة",
+    "Enter the code Or Press Generate to generate a random code": "أدخل الكود أو اضغط على إنشاء لإنشاء كود عشوائي",
+    "Generate Code": "إنشاء رمز",
+    "Enter the value of the voucher": "أدخل قيمة الكرت",
+    "Enter the expiry date": "أدخل تاريخ الانتهاء",
+    "Enter the expiry date of the voucher": "أدخل تاريخ انتهاء الكرت",
+    "Generate a new voucher": "إنشاء كرت جديد",
+    "Code Copied": "تم نسخ الكود",
+    "Redeemed At": "تم استخدامه في"
 }
