@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Car;
 use App\Models\CarReference;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -42,10 +43,10 @@ class CarFactory extends Factory
 
     public function configure()
     {
-        $carImagesPath = 'cars'; // Path to the directory containing car images
+        $carImagesPath = public_path('cars'); // Path to the directory containing car images
 
         // Get all image files from the directory
-        $carImages = Storage::files($carImagesPath);
+        $carImages = File::files($carImagesPath);
 
         return $this->afterCreating(function (Car $car) use (&$carImages) {
             // Choose a random image for the current car
@@ -55,9 +56,11 @@ class CarFactory extends Factory
             // Remove the used image from the array to prevent reuse
             unset($carImages[$randomIndex]);
 
-            // Copy the image file to the storage directory
+            // Define the destination path in the storage directory
             $copiedImagePath = 'cars_images/' . basename($randomImage);
-            Storage::copy($randomImage, $copiedImagePath);
+
+            // Copy the image file to the storage directory
+            Storage::disk('local')->put($copiedImagePath, File::get($randomImage->getPathname()));
 
             // Add the copied image to the media collection of the current car
             $car->addMedia(storage_path('app/' . $copiedImagePath))
