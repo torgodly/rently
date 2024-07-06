@@ -7,6 +7,7 @@ use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
 use App\Models\CarReference;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -15,7 +16,7 @@ class CarResource extends Resource
 {
     protected static ?string $model = Car::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-car';
 
     public static function getNavigationGroup(): ?string
     {
@@ -42,16 +43,7 @@ class CarResource extends Resource
     {
         return $table
             ->content(view('car'))
-            ->filters([
-                Tables\Filters\SelectFilter::make('make')
-                    ->options(CarReference::all()->pluck('make', 'make')->toArray())
-                    ->searchable()
-                    ->optionsLimit(12000),
-                Tables\Filters\SelectFilter::make('make')
-                    ->options(CarReference::all()->pluck('make', 'make')->toArray())
-                    ->searchable()
-                    ->optionsLimit(12000)
-            ])
+            ->filters(Car::TableFilter(), Tables\Enums\FiltersLayout::AboveContent)
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

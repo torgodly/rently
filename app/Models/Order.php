@@ -28,6 +28,14 @@ class Order extends Model
         'status',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'pickup_date' => 'datetime',
+            'return_date' => 'datetime',
+        ];
+    }
+
     public static function TableColumns()
     {
         return [

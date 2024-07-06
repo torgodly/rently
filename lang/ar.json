@@ -93,5 +93,19 @@
     "Complete order": "إكمال الطلب",
     "Are you sure you want to complete this order?, Please enter the current mileage of the car.": "هل أنت متأكد أنك تريد إكمال هذا الطلب؟، يرجى إدخال المسافة المقطوعة الحالية للسيارة.",
     "Order Completed": "تم إكمال الطلب",
-    "The order has been completed": "تم إكمال الطلب"
+    "The order has been completed": "تم إكمال الطلب",
+    "Redeem": "استخدام",
+    "Type your voucher code below to TopUp your balance": "اكتب كود الكرت الخاص بك أدناه لشحن رصيدك",
+    "This code has already been redeemed.": "تم استخدام هذا الكود بالفعل.",
+    "This code has expired.": "هذا الكود قد انتهى.",
+    "Voucher redeemed successfully.": "تم استخدام الكرت بنجاح.",
+    "Redeem Voucher": "شحن الرصيد",
+    "Specific Information": "معلومات تفصيلية",
+    "General Information": "معلومات عامة",
+    "License plate": "رقم اللوحة",
+    "Fuel type": "نوع الوقود",
+    "Transmission type": "نوع الجير",
+    "Mileage to service": "المسافة المتبقية للصيانة",
+    "Manufacturing year": "سنة الصنع",
+    "Body style": "نوع الهيكل"
 }

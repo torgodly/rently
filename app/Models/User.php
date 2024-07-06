@@ -83,4 +83,21 @@ class User extends Authenticatable implements  HasAvatar
         ];
     }
 
+
+    //user balance with currency symbol د.ل or LYD based on local
+    public function getBalanceWithSymbolAttribute()
+    {
+        //get local
+        $local = app()->getLocale();
+
+        if ($local == 'ar') {
+            return 'د.ل ' . number_format($this->balance, );
+        } else {
+            return 'LYD ' . number_format($this->balance, );
+        }
+    }
+
+
+    //redeem voucher
+
 }

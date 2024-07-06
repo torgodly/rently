@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\RichEditor;
@@ -11,7 +13,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -41,21 +43,42 @@ class Car extends Model implements HasMedia
         'status',
     ];
 
-    public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public static function TableFilter()
     {
-        return $this->belongsTo(Branch::class);
-    }
-
-    //hero
-    protected function getHeroAttribute(): string
-    {
-        return $this->getFirstMediaUrl('car_images');
-    }
-
-    //name
-    protected function getNameAttribute(): string
-    {
-        return $this->make . ' ' . $this->model . ' ' . $this->manufacturing_year;
+        return [
+            SelectFilter::make('make')
+                ->label('Make')
+                ->translateLabel()
+                ->options(CarReference::all()->pluck('make', 'make')->toArray())
+                ->searchable()
+                ->optionsLimit(12000),
+            SelectFilter::make('model')
+                ->label('Model')
+                ->translateLabel()
+                ->options(CarReference::pluck('model', 'model')->toArray())
+                ->searchable()
+                ->optionsLimit(12000),
+            SelectFilter::make('manufacturing_year')
+                ->label('Manufacturing Year')
+                ->translateLabel()
+                ->options(CarReference::pluck('year', 'year')->toArray())
+                ->searchable()
+                ->optionsLimit(12000),
+            SelectFilter::make('body_style')
+                ->label('Body Style')
+                ->translateLabel()
+                ->options(collect(CarReference::pluck('body_style', 'body_style')->toArray())
+                    ->flatMap(function ($jsonKey, $jsonValue) {
+                        return array_unique(array_merge(json_decode($jsonKey), json_decode($jsonValue)));
+                    })
+                    ->mapWithKeys(function ($style) {
+                        return [$style => $style];
+                    })
+                    ->toArray()
+                )
+                ->searchable()
+                ->optionsLimit(12000),
+        ];
     }
 
     public static function FromFields(): array
@@ -83,6 +106,7 @@ class Car extends Model implements HasMedia
                             ->label('Model')
                             ->options(fn(Get $get) => CarReference::where('make', $get('make'))->pluck('model', 'model')->toArray())
                             ->searchable()
+                            ->live()
                             ->optionsLimit(12000)
                             ->required(),
                         Select::make('manufacturing_year')
@@ -99,15 +123,16 @@ class Car extends Model implements HasMedia
                             ->label('Body Style')
                             ->searchable()
                             ->optionsLimit(12000)
-                            ->options(
-                                collect(CarReference::all()->pluck('body_style', 'body_style')->toArray())
+                            ->options(function (Get $get) {
+                                return collect(CarReference::where('model', $get('model'))->where('make', $get('make'))->where('year', $get('manufacturing_year'))->pluck('body_style', 'body_style')->toArray())
                                     ->flatMap(function ($jsonKey, $jsonValue) {
                                         return array_unique(array_merge(json_decode($jsonKey), json_decode($jsonValue)));
                                     })
                                     ->mapWithKeys(function ($style) {
                                         return [$style => $style];
                                     })
-                                    ->toArray()
+                                    ->toArray();
+                            }
                             )->required(),
                         RichEditor::make('description')
                             ->translateLabel()
@@ -188,14 +213,54 @@ class Car extends Model implements HasMedia
                             ->required(),
                     ])->columns(2),
                 ]),
-
             ])->columnSpan(['lg' => 1]),
         ];
     }
 
-    //my car scope
+    //hero
+
+    public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    //name
+
     public function scopeMyCars($query)
     {
         return $query->where('branch_id', auth()->user()->branch->id);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    //my car scope
+
+    public function getUnavailableDatesAttribute()
+    {
+        return $this->reservations->flatMap(function ($reservation) {
+            $dates = CarbonPeriod::create($reservation->pickup_date, $reservation->return_date->addday())->toArray();
+            return array_map(function($date) {
+                return $date->format('Y-m-d');
+            }, $dates);
+        })->toArray();
+    }
+
+
+    //orders
+
+    protected function getHeroAttribute(): string
+    {
+        return $this->getFirstMediaUrl('car_images');
+    }
+    //get unavailable dates for car
+    //eg. ['2024-07-01' , '2024-07-02']
+
+    protected function getNameAttribute(): string
+    {
+        return $this->make . ' ' . $this->model . ' ' . $this->manufacturing_year;
+    }
+
 }

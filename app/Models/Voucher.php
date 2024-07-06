@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Actions\Action as ActionComponent;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Actions\Action as ActionComponent;
+
 class Voucher extends Model
 {
     use HasFactory;
@@ -25,7 +26,7 @@ class Voucher extends Model
 
     public static function tableColumns(): array
     {
-    return    [
+        return [
             TextColumn::make('code')
                 ->translateLabel()
                 ->copyable()
@@ -114,11 +115,36 @@ class Voucher extends Model
 
             })
             ->modalIcon('heroicon-o-ticket')
-            ->modalDescription()
-            ;
+            ->modalDescription();
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    //check if the voucher is expired or has been redeemed
+    public function isExpired(): bool
+    {
+        return $this->expiry_date < now();
+    }
+
+    public function isRedeemed(): bool
+    {
+        return $this->user_id != null;
+    }
+
+    //user redeemes the voucher
+    public function redeem($user)
+    {
+        $this->update([
+            'status' => 'inactive',
+            'user_id' => $user->id,
+            'redeemed_at' => now()
+        ]);
+
+        $user->update([
+            'balance' => $user->balance + $this->value
+        ]);
     }
 }
