@@ -22,9 +22,10 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'car_id',
+        'pickup_location_id',
+        'return_location_id',
         'pickup_date',
         'return_date',
-        'location',
         'status',
     ];
 
@@ -274,4 +275,9 @@ class Order extends Model
         ]);
     }
 
+
+    public function getDaysBookedAttribute()
+    {
+        return Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date));
+    }
 }

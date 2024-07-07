@@ -23,7 +23,6 @@ class OrderFactory extends Factory
             'pickup_location_id' => \App\Models\Location::factory(),
             'return_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
             'return_location_id' => \App\Models\Location::factory(),
-            'days_booked' => $this->faker->numberBetween(1, 30),
             'status' => $this->faker->randomElement(["Pending","Confirmed","Active","Completed","Cancelled"]),
         ];
     }

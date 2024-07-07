@@ -107,5 +107,7 @@
     "Transmission type": "نوع الجير",
     "Mileage to service": "المسافة المتبقية للصيانة",
     "Manufacturing year": "سنة الصنع",
-    "Body style": "نوع الهيكل"
+    "Body style": "نوع الهيكل",
+    "The selected date range overlaps with unavailable dates.": "تتداخل الفترة المحددة مع التواريخ غير المتاحة.",
+    "Reservation Period": "فترة الحجز"
 }

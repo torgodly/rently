@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Infolists\Components\PriceEntry;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Filament\Forms\Components\Grid;
@@ -13,6 +14,8 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -218,6 +221,58 @@ class Car extends Model implements HasMedia
     }
 
     //hero
+    public static function infolist()
+    {
+        return [
+            \Filament\Infolists\Components\Group::make([
+                \Filament\Infolists\Components\Section::make(__('General Information'))->schema([
+                    \Filament\Infolists\Components\Fieldset::make(__('Car Information'))->schema([
+                        \Filament\Infolists\Components\Grid::make(['default' => 2])->schema([
+
+                            TextEntry::make('make')->badge()->translateLabel(),
+
+                            TextEntry::make('model')->badge()->translateLabel(),
+
+                            TextEntry::make('manufacturing_year')->badge()->translateLabel(),
+
+                            TextEntry::make('body_style')->badge()->translateLabel(),
+                        ]),
+                    ]),
+                    \Filament\Infolists\Components\Fieldset::make(__('Description'))->schema([
+                        TextEntry::make('description')->columnSpanFull()->translateLabel(),
+                        SpatieMediaLibraryImageEntry::make('image')
+                            ->hiddenLabel()
+                            ->collection('car_images')
+                            ->columnSpanFull()
+                            ->extraImgAttributes([
+//                            'class' => 'w-full h-64 object-cover object-center',
+                                'style' => "height: auto;width: 100%;"
+                            ]),
+                    ]),
+                ]),
+            ])->columnSpan(['lg' => 2]),
+            \Filament\Infolists\Components\Group::make([
+                \Filament\Infolists\Components\Section::make(__('Specific Information'))->schema([
+                    \Filament\Infolists\Components\Fieldset::make(__('Price'))->schema([
+                        PriceEntry::make('price_per_day')->hiddenLabel()->columnSpanFull()->translateLabel()
+                    ]),
+                    \Filament\Infolists\Components\Fieldset::make(__('Car Details'))->schema([
+                        \Filament\Infolists\Components\Grid::make(['default' => 2])->schema([
+
+                            TextEntry::make('color')->badge()->icon('tabler-color-swatch')->translateLabel(),
+                            TextEntry::make('license_plate')->badge()->icon('tabler-id')->translateLabel(),
+                            TextEntry::make('mileage')->badge()->icon('tabler-car')->prefix('km ')->translateLabel(),
+                            TextEntry::make('mileage_to_service')->badge()->icon('tabler-car')->prefix('km ')->translateLabel(),
+                            TextEntry::make('seats')->badge()->icon('tabler-armchair')->translateLabel(),
+                            TextEntry::make('transmission_type')->badge()->icon('tabler-manual-gearbox')->translateLabel(),
+                            TextEntry::make('fuel_type')->badge()->icon('tabler-gas-station')->translateLabel(),
+                        ]),
+                    ]),
+                ]),
+            ])->columnSpan(['lg' => 1]),
+
+        ];
+    }
 
     public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -247,6 +302,9 @@ class Car extends Model implements HasMedia
             }, $dates);
         })->toArray();
     }
+
+    //list of dates where car is booked
+
 
 
     //orders

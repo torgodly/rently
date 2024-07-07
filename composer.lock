@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aea95e391ba1f61babbc2034ba6f92d",
+    "content-hash": "bdbbae92bf2108f5d5c8072b5f099437",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3435,16 +3435,16 @@
         },
         {
             "name": "malzariey/filament-daterangepicker-filter",
-            "version": "2.7.3",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/malzariey/filament-daterangepicker-filter.git",
-                "reference": "37dca49a04593be4df207107fe62131a02954d8a"
+                "reference": "8a6950002fe906682a09a4137cf04d3c2a89525a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/malzariey/filament-daterangepicker-filter/zipball/37dca49a04593be4df207107fe62131a02954d8a",
-                "reference": "37dca49a04593be4df207107fe62131a02954d8a",
+                "url": "https://api.github.com/repos/malzariey/filament-daterangepicker-filter/zipball/8a6950002fe906682a09a4137cf04d3c2a89525a",
+                "reference": "8a6950002fe906682a09a4137cf04d3c2a89525a",
                 "shasum": ""
             },
             "require": {
@@ -3490,7 +3490,7 @@
             ],
             "support": {
                 "issues": "https://github.com/malzariey/filament-daterangepicker-filter/issues",
-                "source": "https://github.com/malzariey/filament-daterangepicker-filter/tree/2.7.3"
+                "source": "https://github.com/malzariey/filament-daterangepicker-filter/tree/2.8.0"
             },
             "funding": [
                 {
@@ -3498,7 +3498,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-07T06:30:43+00:00"
+            "time": "2024-07-01T22:18:22+00:00"
         },
         {
             "name": "masterminds/html5",

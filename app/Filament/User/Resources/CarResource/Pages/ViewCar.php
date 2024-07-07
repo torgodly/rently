@@ -5,7 +5,6 @@ namespace App\Filament\User\Resources\CarResource\Pages;
 use App\Filament\User\Resources\CarResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
-use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 
 class ViewCar extends ViewRecord
 {
@@ -16,6 +15,7 @@ class ViewCar extends ViewRecord
         return [
 //            Actions\EditAction::make(),
             Actions\Action::make('Order')
+                ->url(CarResource::getUrl('order',[ $this->record]))
 
         ];
     }
