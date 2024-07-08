@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->dateTime('return_date');
             $table->foreignId('return_location_id')->constrained('locations');
             $table->enum('status', ["Pending","Confirmed","Active","Completed","Cancelled"])->default('Pending');
+            $table->string('cancel_reason')->nullable();
+            $table->foreignId('canceled_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

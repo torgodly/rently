@@ -14,6 +14,7 @@ use Filament\Infolists\Components\ViewEntry;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -27,6 +28,7 @@ class Order extends Model
         'pickup_date',
         'return_date',
         'status',
+        "cancel_reason"
     ];
 
     protected function casts(): array
@@ -37,7 +39,7 @@ class Order extends Model
         ];
     }
 
-    public static function TableColumns()
+    public static function TableColumns(): array
     {
         return [
             TextColumn::make('user.name')
@@ -85,7 +87,7 @@ class Order extends Model
         ];
     }
 
-    public static function InfoListEntry()
+    public static function InfoListEntry(): array
     {
         return [
             Group::make([
@@ -95,7 +97,7 @@ class Order extends Model
                             ->hiddenLabel()
                             ->height(500)
                             ->columnSpanFull()
-                    ]),
+                    ])->visible(Auth::user()->type != 'user'),
                     Fieldset::make(__('Client'))
                         ->schema([
                             Grid::make()->schema([
@@ -135,11 +137,11 @@ class Order extends Model
                     Fieldset::make(__('Order'))->schema([
                         Grid::make()->schema([
                             TextEntry::make('pickup_date')
-                                ->dateTime('H:i d-m-Y')
+                                ->dateTime('Y-m-d')
                                 ->label('Pickup Date')
                                 ->translateLabel(),
                             TextEntry::make('return_date')
-                                ->dateTime('H:i d-m-Y')
+                                ->dateTime('Y-m-d')
                                 ->label('Return Date')
                                 ->translateLabel(),
                             TextEntry::make('pickupLocation.name')
@@ -280,4 +282,15 @@ class Order extends Model
     {
         return Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date));
     }
+
+    //Cancelled
+    public function Cancelled($reason): void
+    {
+        $this->update([
+            'status' => 'Cancelled',
+            'cancel_reason' => $reason,
+            'canceled_by' => auth()->id()
+        ]);
+    }
+
 }

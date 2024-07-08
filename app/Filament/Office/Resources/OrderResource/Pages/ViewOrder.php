@@ -113,6 +113,44 @@ class ViewOrder extends ViewRecord
                 }),
 
 
+            //cancel
+            Actions\Action::make('Cancel Order')
+                ->color('red')
+                ->label('Cancel Order')
+                ->translateLabel()
+                ->requiresConfirmation()
+                ->modelLabel(__('Cancel Order'))
+                ->modalDescription(__('Are you sure you want to cancel this order?, Please enter the reason for cancellation.'))
+                ->modalIcon('heroicon-o-x-circle')
+                ->fillForm(fn($record) => [
+                    'reason' => '',
+                ])
+                ->form([
+                    TextInput::make('reason')
+                        ->translateLabel()
+                        ->label('Reason')
+                        ->required(),
+                ])
+                ->visible(fn($record) => in_array($record->status, ['Pending', 'Confirmed', 'Active']))
+                ->action(function ($record, array $data) {
+                    $record->Cancelled($data['reason']);
+                    Notification::make()
+                        ->icon('heroicon-o-x-circle')
+                        ->iconColor('red')
+                        ->color('red')
+                        ->title(__('Order Cancelled'))
+                        ->body(__('The order has been cancelled'))
+                        ->send();
+                    Notification::make()
+                        ->icon('heroicon-o-x-circle')
+                        ->iconColor('red')
+                        ->color('red')
+                        ->title(__('Order Cancelled'))
+                        ->body(__('Your order has been cancelled'))
+                        ->sendToDatabase($record->user);
+                }),
+
+
         ];
     }
 }

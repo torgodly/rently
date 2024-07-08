@@ -109,5 +109,8 @@
     "Manufacturing year": "سنة الصنع",
     "Body style": "نوع الهيكل",
     "The selected date range overlaps with unavailable dates.": "تتداخل الفترة المحددة مع التواريخ غير المتاحة.",
-    "Reservation Period": "فترة الحجز"
+    "Reservation Period": "فترة الحجز",
+    "Cancel Order": "إلغاء الطلب",
+    "Are you sure you want to cancel this order?, Please enter the reason for cancellation.": "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟، يرجى إدخال سبب الإلغاء." ,
+    "Reason": "السبب"
 }
