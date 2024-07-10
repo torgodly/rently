@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 
 class OfficePanelProvider extends PanelProvider
 {
@@ -25,13 +26,6 @@ class OfficePanelProvider extends PanelProvider
     {
         return $panel
             ->id('office')
-            ->plugin(BreezyCore::make()
-                ->myProfile(
-                    shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
-                    shouldRegisterNavigation: false, // Adds a main navigation item for the My Profile page (default = false)
-                    hasAvatars: false, // Enables the avatar upload form component (default = false)
-                    slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
-                )->enableTwoFactorAuthentication())
             ->path('office')
             ->colors([
                 'primary' => Color::Amber,
@@ -41,7 +35,16 @@ class OfficePanelProvider extends PanelProvider
                 'red' => Color::Red,
                 'green' => Color::Green,
 
+
+
             ])
+            ->plugin(BreezyCore::make()
+                ->myProfile(
+                    shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
+                    shouldRegisterNavigation: false, // Adds a main navigation item for the My Profile page (default = false)
+                    hasAvatars: true, // Enables the avatar upload form component (default = false)
+                    slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
+                )->enableTwoFactorAuthentication())
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.4rem')
             ->viteTheme('resources/css/filament/admin/theme.css')

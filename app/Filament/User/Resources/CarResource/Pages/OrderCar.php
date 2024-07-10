@@ -7,6 +7,7 @@ use App\Forms\Components\ViewPrice;
 use App\Models\About;
 use App\Models\Order;
 use App\Rules\DateOverLap;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
@@ -45,6 +46,16 @@ class OrderCar extends Page implements HasForms, HasInfolists
     {
         return $form
             ->schema([
+                Group::make([
+                    Section::make(__('Pricing'))->schema([
+                        ViewPrice::make('price')
+                            ->disabled()
+                            ->hiddenLabel()
+                            ->translateLabel()
+                            ->label('Price')
+                    ]),
+
+                ])->columnSpan(['lg' => 1]),
                 \Filament\Forms\Components\Group::make([
                     Section::make(__('Car Info'))->schema([
                         \Filament\Forms\Components\Grid::make()->schema([
@@ -75,63 +86,7 @@ class OrderCar extends Page implements HasForms, HasInfolists
 
                     ]),
                 ])->columnSpan(['lg' => 2]),
-                Group::make([
-                    Section::make(__('Pricing'))->schema([
-                        ViewPrice::make('price')
-                            ->disabled()
-                            ->translateLabel()
-                            ->label('Price')
-//                            ->required(),
-                    ]),
-//                    Section::make(__('Car Details'))->schema([
-//                        Grid::make()->schema([
-//                            TextInput::make('color')
-//                                ->prefixIcon('tabler-color-swatch')
-//                                ->translateLabel()
-//                                ->label('Color')
-//                                ->required(),
-//                            TextInput::make('license_plate')
-//                                ->prefixIcon('tabler-id')
-//                                ->translateLabel()
-//                                ->label('License Plate')
-//                                ->required(),
-//                            TextInput::make('mileage')
-//                                ->prefix('km')
-//                                ->translateLabel()
-//                                ->label('Mileage')
-//                                ->required(),
-//                            TextInput::make('mileage_to_service')
-//                                ->prefix('km')
-//                                ->translateLabel()
-//                                ->label('Mileage To Service')
-//                                ->required(),
-//                            TextInput::make('seats')
-//                                ->prefixIcon('tabler-armchair')
-//                                ->translateLabel()
-//                                ->label('Seats')
-//                                ->required(),
-//                            Select::make('transmission_type')
-//                                ->prefixIcon('tabler-manual-gearbox')
-//                                ->translateLabel()
-//                                ->label('Transmission Type')
-//                                ->options([
-//                                    'automatic' => 'Automatic',
-//                                    'manual' => 'Manual',
-//                                ])
-//                                ->required(),
-//                            Select::make('fuel_type')
-//                                ->prefixIcon('tabler-gas-station')
-//                                ->translateLabel()
-//                                ->label('Fuel Type')
-//                                ->options([
-//                                    'petrol' => 'Petrol',
-//                                    'diesel' => 'Diesel',
-//                                    'electric' => 'Electric',
-//                                ])
-//                                ->required(),
-//                        ])->columns(2),
-//                    ]),
-                ])->columnSpan(['lg' => 1]),
+
             ])
             ->model(Order::class)
             ->statePath('data')
@@ -143,11 +98,14 @@ class OrderCar extends Page implements HasForms, HasInfolists
         try {
             $data = $this->form->getState();
             list($start, $end) = explode(' - ', $data['date_range']);
-            $data['pickup_date'] = $start;
-            $data['return_date'] = $end;
+            $data['pickup_date'] = Carbon::parse($start)->format('Y-d-m');
+            $data['return_date'] = Carbon::parse($end)->format('Y-d-m');
+            $data['price'] = $this->record->price_per_day;
+            $data['discount'] = $this->record->discount;
             $data['user_id'] = auth()->id();
 //            dd($data);
             $this->record->reservations()->create($data);
+
         } catch (Halt $exception) {
             return;
         }
@@ -166,4 +124,6 @@ class OrderCar extends Page implements HasForms, HasInfolists
                 ->submit('save'),
         ];
     }
+
+
 }

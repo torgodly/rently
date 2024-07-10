@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Infolists\Components\CarEntry;
+use App\Infolists\Components\PassportEntry;
+use App\Infolists\Components\ShowPrice;
 use Carbon\Carbon;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Group;
-use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ViewEntry;
@@ -28,16 +29,11 @@ class Order extends Model
         'pickup_date',
         'return_date',
         'status',
-        "cancel_reason"
+        "cancel_reason",
+        'canceled_by',
+        'price',
+        'discount'
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'pickup_date' => 'datetime',
-            'return_date' => 'datetime',
-        ];
-    }
 
     public static function TableColumns(): array
     {
@@ -87,15 +83,16 @@ class Order extends Model
         ];
     }
 
+    //isCancelled
+
     public static function InfoListEntry(): array
     {
         return [
             Group::make([
                 Section::make(__('Order Info'))->schema([
                     Fieldset::make(__('Identifier'))->schema([
-                        ImageEntry::make('user.passport')
+                        PassportEntry::make('user.passport')
                             ->hiddenLabel()
-                            ->height(500)
                             ->columnSpanFull()
                     ])->visible(Auth::user()->type != 'user'),
                     Fieldset::make(__('Client'))
@@ -110,28 +107,13 @@ class Order extends Model
                                 TextEntry::make('user.phone')
                                     ->label('Phone')
                                     ->translateLabel(),
-                                TextEntry::make('user.points')
+                                TextEntry::make('user.balance')
                                     ->badge()
-                                    ->icon('tabler-trophy')
-                                    ->label('Points')
+                                    ->color(fn($record) => $record->user->balnace > 0 ? 'green' : 'red')
+                                    ->default(fn($record) => dd($record->user->balnace + 1))
+                                    ->icon('tabler-wallet')
+                                    ->label('Balance')
                                     ->translateLabel(),
-//                                TextEntry::make('user.passport')
-//                                    ->placeholder('passport')
-//                                    ->translateLabel()
-//                                    ->action(Action::make('delete')
-//                                        ->fillForm(fn($record) => [
-//                                            'passport' => $record->user->passport,
-//                                        ])
-//                                        ->modalCancelAction(false)
-//                                        ->modalSubmitAction(false)
-//                                        ->form([
-//                                            ViewField::make('passport')
-//                                                ->view('passport')
-//                                                ->translateLabel(),
-//                                        ])
-//                                    )
-//                                    ->translateLabel(),
-
                             ])
                         ]),
                     Fieldset::make(__('Order'))->schema([
@@ -145,16 +127,23 @@ class Order extends Model
                                 ->label('Return Date')
                                 ->translateLabel(),
                             TextEntry::make('pickupLocation.name')
+                                ->icon('tabler-location')
+                                ->iconColor('blue')
+                                ->iconPosition('after')
                                 ->url(fn($record) => $record->pickupLocation->url)
                                 ->openUrlInNewTab()
                                 ->label('Pickup Location')
                                 ->translateLabel(),
                             TextEntry::make('returnLocation.name')
+                                ->icon('tabler-location')
+                                ->iconColor('blue')
+                                ->iconPosition('after')
                                 ->url(fn($record) => $record->returnLocation->url)
                                 ->openUrlInNewTab()
                                 ->label('Return Location')
                                 ->translateLabel(),
                             TextEntry::make('days_booked')
+                                ->badge()
                                 ->label('Days Booked')
                                 ->translateLabel(),
                             TextEntry::make('status')
@@ -176,14 +165,12 @@ class Order extends Model
             ])->columnSpan(2),
             Group::make([
                 Section::make(__('Price'))->schema([
-                    ViewEntry::make('price')
-                        ->view('price')
-
+                    ShowPrice::make('price')
+                        ->hiddenLabel()
                 ]),
                 Section::make(__('Status'))->schema([
                     ViewEntry::make('status')
                         ->view('status')
-
                 ]),
                 Section::make(__('Car Info'))->schema([
                     CarEntry::make('car')
@@ -193,6 +180,23 @@ class Order extends Model
         ];
     }
 
+    //canceled by , the customer or the admin
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function isCancelled(): bool
+    {
+        return $this->status == 'Cancelled';
+    }
+
+    public function canceledBy(): string
+    {
+        return $this->canceled_by == auth()->id() ? __('Admin') : __('Customer');
+    }
+
     public function car()
     {
         return $this->belongsTo(Car::class);
@@ -200,11 +204,6 @@ class Order extends Model
 
     //location
 
-    public function getPriceAttribute()
-    {
-        $days = Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date));
-        return round($days * $this->car->price_per_day, 2);
-    }
 
     public function pickupLocation()
     {
@@ -226,16 +225,16 @@ class Order extends Model
 
     //my orders
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-
     public function Confirmed(): void
     {
         try {
-            $this->user->withdraw($this->price);
+            //check if there is discount
+            $discount = $this->discount;
+            $price = $this->price;
+            $price = $price - ($price * $discount / 100);
+
+            $price = $price * $this->days_booked;
+            $this->user->withdraw($price);
             // If withdrawal succeeds, update order status to 'Confirmed'
             $this->update([
                 'status' => 'Confirmed'
@@ -243,12 +242,13 @@ class Order extends Model
         } catch (\Exception $e) {
             // If withdrawal fails (insufficient balance), update order status to 'Cancelled'
             $this->update([
-                'status' => 'Cancelled'
+                'status' => 'Cancelled',
+                'cancel_reason' => 'Insufficient balance',
+                'canceled_by' => auth()->id()
             ]);
         }
     }
 
-    //Inprogress
     public function Active(): void
     {
         $this->update([
@@ -256,7 +256,8 @@ class Order extends Model
         ]);
     }
 
-    //Completed
+    //Inprogress
+
     public function Completed($mileage): void
     {
         $this->update([
@@ -277,13 +278,13 @@ class Order extends Model
         ]);
     }
 
+    //Completed
 
     public function getDaysBookedAttribute()
     {
-        return Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date));
+        return Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date)) + 1;
     }
 
-    //Cancelled
     public function Cancelled($reason): void
     {
         $this->update([
@@ -291,6 +292,16 @@ class Order extends Model
             'cancel_reason' => $reason,
             'canceled_by' => auth()->id()
         ]);
+    }
+
+    //Cancelled
+
+    protected function casts(): array
+    {
+        return [
+            'pickup_date' => 'datetime',
+            'return_date' => 'datetime',
+        ];
     }
 
 }

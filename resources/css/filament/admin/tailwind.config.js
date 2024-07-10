@@ -8,6 +8,7 @@ export default {
         './vendor/filament/**/*.blade.php',
         './resources/views/**/*.blade.php',
         './resources/views/filament/user/*',
-        './resources/views/filament/user/pages/*'
+        './resources/views/filament/user/pages/*',
+        './resources/views/*',
     ],
 }

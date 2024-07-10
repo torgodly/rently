@@ -22,6 +22,11 @@ class RedeemPage extends Page implements HasForms
 
     protected static string $view = 'filament.user.pages.redeem-page';
     protected static ?int $navigationSort = 1;
+    public static function getNavigationGroup(): ?string
+    {
+        return __('App');
+    }
+
     public static function getNavigationLabel(): string
     {
         return __('Redeem Voucher');

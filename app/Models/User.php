@@ -33,7 +33,8 @@ class User extends Authenticatable implements  HasAvatar
         'type',
         'passport',
         'password',
-        'balance'
+        'balance',
+        'avatar_url',
     ];
 
     /**
@@ -55,7 +56,11 @@ class User extends Authenticatable implements  HasAvatar
     {
         return $this->hasMany(Order::class);
     }
-
+//is admin
+    public function isAdmin()
+    {
+        return $this->type == 'admin';
+    }
     /**
      * @throws \Exception
      */

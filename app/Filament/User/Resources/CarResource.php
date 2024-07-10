@@ -18,6 +18,11 @@ class CarResource extends Resource
     protected static ?string $navigationIcon = 'tabler-car';
 
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('App');
+    }
+
     public static function getModelLabel(): string
     {
         return __('Car');

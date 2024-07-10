@@ -98,4 +98,10 @@ class Branch extends Model
                 ->toggleable(isToggledHiddenByDefault: true),
         ];
     }
+
+    //locations
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }

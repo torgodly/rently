@@ -44,6 +44,7 @@ class LocationResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Location::query()->myLocations())
             ->columns(Location::TableColumns())
             ->filters([
                 //

@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->enum('transmission_type', ['automatic', 'manual']);
             $table->string('fuel_type',);
             $table->decimal('price_per_day', 8, 2);
+            $table->integer('discount', )->default(0);
+            $table->decimal('price_per_day_discount', 8, 2)->nullable();
             $table->boolean('available')->default(true);
             $table->foreignId('branch_id')->constrained();
             $table->text('description')->nullable();

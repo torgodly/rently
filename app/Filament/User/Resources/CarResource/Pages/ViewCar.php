@@ -10,6 +10,7 @@ class ViewCar extends ViewRecord
 {
     protected static string $resource = CarResource::class;
 
+
     protected function getHeaderActions(): array
     {
         return [

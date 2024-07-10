@@ -17,7 +17,7 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->randomElement([
+            'name' => $this->faker->unique()->randomElement([
                     "مطار طرابلس الدولي",
                     "مطار معيتيقة الدولي",
                     "مطار بنينا الدولي",
@@ -31,6 +31,7 @@ class LocationFactory extends Factory
             ),
             'long' => $this->faker->longitude,
             'lat' => $this->faker->latitude,
+            'branch_id' => 1
         ];
     }
 }

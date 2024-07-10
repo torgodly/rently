@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Dotswan\MapPicker\Fields\Map;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -11,6 +12,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Location extends Model
 {
@@ -30,14 +32,27 @@ class Location extends Model
     {
         return [
             TextInput::make('long')
+                ->translateLabel()
+                ->required()
+                ->maxLength(255),
+            TextInput::make('lat')
+                ->translateLabel()
                 ->required()
                 ->maxLength(255),
 
-            TextInput::make('lat')
-                ->required()
-                ->maxLength(255),
+
+            Select::make('branch_id')
+                ->label('Branch')
+                ->searchable()
+                ->translateLabel()
+                ->options(
+                    Branch::pluck('name', 'id')
+                )
+                ->required(fn() => Auth::user()->isAdmin())
+                ->visible(fn() => Auth::user()->isAdmin()),
 
             TextInput::make('name')
+                ->translateLabel()
                 ->hintAction(
                     Action::make('Set Default Location')
                         ->icon('heroicon-m-map-pin')
@@ -48,7 +63,8 @@ class Location extends Model
                             $livewire->dispatch('refreshMap');
                         })
                 )
-                ->required()->columnSpanFull()
+                ->required()
+                ->columnSpan(fn() => Auth::user()->isAdmin() ? 1 : 2)
                 ->maxLength(255),
 
 
@@ -125,4 +141,9 @@ class Location extends Model
         return $this->belongsTo(Branch::class);
     }
 
+//myLocations
+    public function scopeMyLocations($query)
+    {
+        return $query->where('branch_id', auth()->user()->branch->id);
+    }
 }

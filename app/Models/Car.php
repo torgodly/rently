@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Infolists\Components\PassportEntry;
 use App\Infolists\Components\PriceEntry;
-use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -16,7 +16,10 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
 use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Support\Enums\FontWeight;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -44,11 +47,43 @@ class Car extends Model implements HasMedia
         'seats',
         'body_style',
         'status',
+        "discount"
     ];
 
     public static function TableFilter()
     {
         return [
+            Filter::make('Location')
+                ->columnSpan(2)
+                ->form([
+                    Grid::make()->schema([
+                        Select::make('pickup_location_id')
+                            ->label('Pickup Location')
+                            ->translateLabel()
+                            ->options(Location::pluck('name', 'id')->toArray())
+                            ->searchable()
+                            ->optionsLimit(12000),
+                        Select::make('return_location_id')
+                            ->label('Return Location')
+                            ->translateLabel()
+                            ->options(Location::pluck('name', 'id')->toArray())
+                            ->searchable()
+                            ->optionsLimit(12000),
+                    ])
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['pickup_location_id'] ?? null,
+                            fn(Builder $query, $pickupLocationId): Builder => $query->whereHas('branch', fn($query) => $query->whereHas('locations', fn($query) => $query->where('id', $pickupLocationId))
+                            ))
+                        ->when(
+                            $data['return_location_id'] ?? null,
+                            fn(Builder $query, $returnLocationId): Builder => $query->whereHas('branch', fn($query) => $query->whereHas('locations', fn($query) => $query->where('id', $returnLocationId))
+                            ));
+                }),
+
+
             SelectFilter::make('make')
                 ->label('Make')
                 ->translateLabel()
@@ -81,6 +116,35 @@ class Car extends Model implements HasMedia
                 )
                 ->searchable()
                 ->optionsLimit(12000),
+
+            Filter::make('Price')
+                ->columnSpan(2)
+                ->form([
+                    Grid::make()->schema([
+                        TextInput::make('price_from')
+                            ->label('Price From')
+                            ->translateLabel()
+                            ->suffix('د.ل')
+                            ->type('number'),
+                        TextInput::make('price_to')
+                            ->label('Price To')
+                            ->translateLabel()
+                            ->suffix('د.ل')
+                            ->type('number'),
+                    ])
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['price_from'] ?? null,
+                            fn(Builder $query, $price_from): Builder => $query->where('price_per_day', '>=', $price_from)
+                        )
+                        ->when(
+                            $data['price_to'] ?? null,
+                            fn(Builder $query, $price_to): Builder => $query->where('price_per_day', '<=', $price_to)
+                        );
+                }),
+
         ];
     }
 
@@ -229,13 +293,13 @@ class Car extends Model implements HasMedia
                     \Filament\Infolists\Components\Fieldset::make(__('Car Information'))->schema([
                         \Filament\Infolists\Components\Grid::make(['default' => 2])->schema([
 
-                            TextEntry::make('make')->badge()->translateLabel(),
+                            TextEntry::make('make')->weight(FontWeight::Medium)->translateLabel(),
 
-                            TextEntry::make('model')->badge()->translateLabel(),
+                            TextEntry::make('model')->weight(FontWeight::Medium)->translateLabel(),
 
-                            TextEntry::make('manufacturing_year')->badge()->translateLabel(),
+                            TextEntry::make('manufacturing_year')->weight(FontWeight::Medium)->translateLabel(),
 
-                            TextEntry::make('body_style')->badge()->translateLabel(),
+                            TextEntry::make('body_style')->weight(FontWeight::Medium)->translateLabel(),
                         ]),
                     ]),
                     \Filament\Infolists\Components\Fieldset::make(__('Description'))->schema([
@@ -259,13 +323,13 @@ class Car extends Model implements HasMedia
                     \Filament\Infolists\Components\Fieldset::make(__('Car Details'))->schema([
                         \Filament\Infolists\Components\Grid::make(['default' => 2])->schema([
 
-                            TextEntry::make('color')->badge()->icon('tabler-color-swatch')->translateLabel(),
-                            TextEntry::make('license_plate')->badge()->icon('tabler-id')->translateLabel(),
-                            TextEntry::make('mileage')->badge()->icon('tabler-car')->prefix('km ')->translateLabel(),
-                            TextEntry::make('mileage_to_service')->badge()->icon('tabler-car')->prefix('km ')->translateLabel(),
-                            TextEntry::make('seats')->badge()->icon('tabler-armchair')->translateLabel(),
-                            TextEntry::make('transmission_type')->badge()->icon('tabler-manual-gearbox')->translateLabel(),
-                            TextEntry::make('fuel_type')->badge()->icon('tabler-gas-station')->translateLabel(),
+                            TextEntry::make('color')->weight(FontWeight::Medium)->icon('tabler-color-swatch')->translateLabel(),
+                            TextEntry::make('license_plate')->weight(FontWeight::Medium)->icon('tabler-id')->translateLabel(),
+                            TextEntry::make('mileage')->weight(FontWeight::Medium)->icon('tabler-car')->prefix('km ')->translateLabel(),
+                            TextEntry::make('mileage_to_service')->weight(FontWeight::Medium)->icon('tabler-car')->prefix('km ')->translateLabel(),
+                            TextEntry::make('seats')->weight(FontWeight::Medium)->icon('tabler-armchair')->translateLabel(),
+                            TextEntry::make('transmission_type')->weight(FontWeight::Medium)->icon('tabler-manual-gearbox')->translateLabel(),
+                            TextEntry::make('fuel_type')->weight(FontWeight::Medium)->icon('tabler-gas-station')->translateLabel(),
                         ]),
                     ]),
                 ]),
@@ -297,14 +361,13 @@ class Car extends Model implements HasMedia
     {
         return $this->reservations->flatMap(function ($reservation) {
             $dates = CarbonPeriod::create($reservation->pickup_date, $reservation->return_date->addday())->toArray();
-            return array_map(function($date) {
+            return array_map(function ($date) {
                 return $date->format('Y-m-d');
             }, $dates);
         })->toArray();
     }
 
     //list of dates where car is booked
-
 
 
     //orders

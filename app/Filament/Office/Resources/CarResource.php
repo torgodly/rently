@@ -5,19 +5,18 @@ namespace App\Filament\Office\Resources;
 use App\Filament\Office\Resources\CarResource\Pages;
 use App\Filament\Office\Resources\CarResource\RelationManagers;
 use App\Models\Car;
-use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CarResource extends Resource
 {
     protected static ?string $model = Car::class;
 
     protected static ?string $navigationIcon = 'tabler-car';
+
     public static function getNavigationGroup(): ?string
     {
         return __('Management');
@@ -56,6 +55,14 @@ class CarResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema(Car::infolist())
+            ->columns(3);
     }
 
     public static function getRelations(): array
