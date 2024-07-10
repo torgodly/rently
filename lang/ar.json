@@ -130,5 +130,7 @@
     "Add Discount Percentage eg. 10%": "إضافة نسبة خصم مثل 10%",
     "You do not have enough balance to complete this order. Please add funds to your account.": "ليس لديك رصيد كافي لإكمال هذا الطلب. يرجى إضافة أموال إلى حسابك.",
     "Order Car": "طلب سيارة",
-    "Order Now": "اطلب الآن"
+    "Order Now": "اطلب الآن",
+    "Management": "الإدارة",
+    "Your account is inactive, please contact the admin": "حسابك غير نشط، يرجى الاتصال بالمسؤول"
 }

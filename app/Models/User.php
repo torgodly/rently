@@ -5,21 +5,16 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
-use function Laravel\Prompts\error;
 
-class User extends Authenticatable implements  HasAvatar
+class User extends Authenticatable implements HasAvatar, FilamentUser
 {
     use  HasFactory, Notifiable, TwoFactorAuthenticatable;
-
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +31,6 @@ class User extends Authenticatable implements  HasAvatar
         'balance',
         'avatar_url',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -47,6 +41,27 @@ class User extends Authenticatable implements  HasAvatar
         'remember_token',
     ];
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->type === 'admin';
+        }
+
+        if ($panel->getId() === 'office') {
+            return $this->type === 'manager';
+        }
+
+        if ($panel->getId() === 'user') {
+            return $this->type === 'user';
+        }
+        return false;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url ? Storage::url($this->avatar_url) : null;
+    }
+
     public function branch()
     {
         return $this->hasOne(Branch::class, 'manager_id');
@@ -56,11 +71,25 @@ class User extends Authenticatable implements  HasAvatar
     {
         return $this->hasMany(Order::class);
     }
+
 //is admin
     public function isAdmin()
     {
         return $this->type == 'admin';
     }
+
+    //is manager
+    public function isManager()
+    {
+        return $this->type == 'manager';
+    }
+
+    //is user
+    public function isUser()
+    {
+        return $this->type == 'user';
+    }
+
     /**
      * @throws \Exception
      */
@@ -75,6 +104,29 @@ class User extends Authenticatable implements  HasAvatar
 
     //withdraw
 
+    public function getBalanceWithSymbolAttribute()
+    {
+        //get local
+        $local = app()->getLocale();
+
+        if ($local == 'ar') {
+            return 'د.ل ' . number_format($this->balance,);
+        } else {
+            return 'LYD ' . number_format($this->balance,);
+        }
+    }
+
+
+    //user balance with currency symbol د.ل or LYD based on local
+
+    public function hasBalance($amount): bool
+    {
+        return $this->balance >= $amount;
+    }
+
+
+    //has balance
+
     /**
      * Get the attributes that should be cast.
      *
@@ -86,27 +138,6 @@ class User extends Authenticatable implements  HasAvatar
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-
-    //user balance with currency symbol د.ل or LYD based on local
-    public function getBalanceWithSymbolAttribute()
-    {
-        //get local
-        $local = app()->getLocale();
-
-        if ($local == 'ar') {
-            return 'د.ل ' . number_format($this->balance, );
-        } else {
-            return 'LYD ' . number_format($this->balance, );
-        }
-    }
-
-
-    //has balance
-    public function hasBalance($amount): bool
-    {
-        return $this->balance >= $amount;
     }
 
     //redeem voucher

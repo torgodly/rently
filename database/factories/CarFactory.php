@@ -35,7 +35,7 @@ class CarFactory extends Factory
             'fuel_type' => $this->faker->randomElement(['gasoline', 'diesel', 'electric']),
             'price_per_day' => $this->faker->randomFloat(2, 50, 500),
             'available' => $this->faker->boolean,
-            'branch_id' => \App\Models\Branch::factory(),
+            'branch_id' => 1,
             'description' => $this->faker->text,
         ];
 

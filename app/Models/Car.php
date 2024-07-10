@@ -145,6 +145,13 @@ class Car extends Model implements HasMedia
                         );
                 }),
 
+            SelectFilter::make('branch_id')
+                ->label('Branch')
+                ->translateLabel()
+                ->options(Branch::all()->pluck('name', 'id')->toArray())
+                ->searchable()
+                ->optionsLimit(12000),
+
         ];
     }
 

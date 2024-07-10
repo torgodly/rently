@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends Resource
 {
@@ -92,6 +93,7 @@ class UserResource extends Resource
                     ->badge()
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('active')
+                    ->disabled(fn (Model $record) => $record->isAdmin())
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->translateLabel()

@@ -23,10 +23,14 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         Voucher::factory(100)->create();
         $this->call(CarReferencesTableSeeder::class);
-        Order::factory(4)->create();
+//        $location = \App\Models\Location::factory();
+        $branch = \App\Models\Branch::factory()->create();
+        $car = \App\Models\Car::factory(10)->create();
+//        Order::factory(4)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@admin.com',
+            'type' => 'admin',
         ]);
     }
 }
