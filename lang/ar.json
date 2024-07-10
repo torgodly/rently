@@ -127,5 +127,8 @@
     "Add Discount": "إضافة خصم",
     "Add Discount to the Car Price Per Day": "إضافة خصم إلى سعر السيارة اليومي",
     "Discount Percentage": "نسبة الخصم",
-    "Add Discount Percentage eg. 10%": "إضافة نسبة خصم مثل 10%"
+    "Add Discount Percentage eg. 10%": "إضافة نسبة خصم مثل 10%",
+    "You do not have enough balance to complete this order. Please add funds to your account.": "ليس لديك رصيد كافي لإكمال هذا الطلب. يرجى إضافة أموال إلى حسابك.",
+    "Order Car": "طلب سيارة",
+    "Order Now": "اطلب الآن"
 }

@@ -45,6 +45,7 @@
             @else
                 <div class="text-green-600">{{ number_format($discountedPrice) }} د.ل</div>
             @endif
+
         </div>
     </div>
 </x-dynamic-component>

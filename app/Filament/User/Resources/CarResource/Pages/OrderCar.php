@@ -3,6 +3,7 @@
 namespace App\Filament\User\Resources\CarResource\Pages;
 
 use App\Filament\User\Resources\CarResource;
+use App\Filament\User\Resources\OrderResource;
 use App\Forms\Components\ViewPrice;
 use App\Models\About;
 use App\Models\Order;
@@ -20,6 +21,8 @@ use Filament\Infolists\Contracts\HasInfolists;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Auth;
 use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 
 class OrderCar extends Page implements HasForms, HasInfolists
@@ -32,8 +35,16 @@ class OrderCar extends Page implements HasForms, HasInfolists
     protected static string $resource = CarResource::class;
 
     protected static string $view = 'filament.user.resources.car-resource.pages.order-car';
-
     public $data;
+
+    public function getHeading(): string|Htmlable
+    {
+        return __('Order Car');
+    }
+    public function getBreadcrumb(): ?string
+    {
+        return __('Order Car');
+    }
 
     public function mount(int|string $record): void
     {
@@ -95,25 +106,41 @@ class OrderCar extends Page implements HasForms, HasInfolists
 
     public function save(): void
     {
-        try {
-            $data = $this->form->getState();
-            list($start, $end) = explode(' - ', $data['date_range']);
-            $data['pickup_date'] = Carbon::parse($start)->format('Y-d-m');
-            $data['return_date'] = Carbon::parse($end)->format('Y-d-m');
-            $data['price'] = $this->record->price_per_day;
-            $data['discount'] = $this->record->discount;
-            $data['user_id'] = auth()->id();
-//            dd($data);
-            $this->record->reservations()->create($data);
+        $data = $this->form->getState();
+        list($start, $end) = explode(' - ', $data['date_range']);
+        $data['pickup_date'] = Carbon::createFromFormat('d/m/Y', $start)->format('Y-m-d');
+        $data['return_date'] = Carbon::createFromFormat('d/m/Y', $end)->format('Y-m-d');
+        $data['price'] = $this->record->price_per_day;
+        $data['discount'] = $this->record->discount;
+        $data['user_id'] = auth()->id();
 
-        } catch (Halt $exception) {
-            return;
+        $number_of_days = Carbon::parse($data['pickup_date'])->diffInDays(Carbon::parse($data['return_date'])) + 1;
+        $pricePerDay = $this->record->price_per_day;
+        $totalPrice = $pricePerDay * $number_of_days;
+        $discountAmount = $totalPrice * ($this->record->discount / 100);
+        $discountedPrice = $totalPrice - $discountAmount;
+        if (Auth::user()->hasBalance($discountedPrice)) {
+            try {
+
+                $order = $this->record->reservations()->create($data);
+
+
+            } catch (Halt $exception) {
+                return;
+            }
+
+            Notification::make()
+                ->success()
+                ->title(__('filament-panels::resources/pages/edit-record.notifications.saved.title'))
+                ->send();
+            $this->redirect(OrderResource::getUrl('view', [$order]));
         }
-
         Notification::make()
-            ->success()
-            ->title(__('filament-panels::resources/pages/edit-record.notifications.saved.title'))
+            ->danger()
+            ->title(__('Insufficient balance'))
+            ->body(__('You do not have enough balance to complete this order. Please add funds to your account.'))
             ->send();
+
     }
 
     protected function getFormActions(): array

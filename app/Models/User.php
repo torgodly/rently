@@ -103,6 +103,12 @@ class User extends Authenticatable implements  HasAvatar
     }
 
 
+    //has balance
+    public function hasBalance($amount): bool
+    {
+        return $this->balance >= $amount;
+    }
+
     //redeem voucher
 
 }

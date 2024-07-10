@@ -16,6 +16,8 @@ class ViewCar extends ViewRecord
         return [
 //            Actions\EditAction::make(),
             Actions\Action::make('Order')
+                ->label('Order Now')
+                ->translateLabel()
                 ->url(CarResource::getUrl('order',[ $this->record]))
 
         ];
