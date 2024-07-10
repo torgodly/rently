@@ -43,6 +43,7 @@
 <div class="button-container">
     <a href="admin/login" class="button">لوحة الإدارة</a>
     <a href="office/login" class="button">لوحة الموظف</a>
+    <a href="user/login" class="button">لوحة المستخدم</a>
 </div>
 </body>
 </html>
