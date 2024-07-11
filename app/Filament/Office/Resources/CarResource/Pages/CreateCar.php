@@ -13,7 +13,7 @@ class CreateCar extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['branch_id'] = auth()->user()->branch_id;
+        $data['branch_id'] = auth()->user()->branch->id;
         return $data;
     }
 }
