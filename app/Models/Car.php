@@ -164,7 +164,7 @@ class Car extends Model implements HasMedia
                         Select::make('branch_id')
                             ->translateLabel()
                             ->label('Branch')
-                            ->visible(fn() => auth()->user()->id === 1)
+                            ->visible(fn() => auth()->user()->isAdmin())
                             ->options(fn() => \App\Models\Branch::all()->pluck('name', 'id')->toArray())
                             ->required(),
                         Select::make('make')
