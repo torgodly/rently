@@ -36,6 +36,7 @@ class CarResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Car::query()->userCars())
             ->content(view('car'))
             ->columns([
                 //

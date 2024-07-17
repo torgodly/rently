@@ -22,12 +22,15 @@ class Voucher extends Model
         'status',
         'expiry_date',
         'user_id',
+        'redeemed_at'
     ];
 
     public static function tableColumns(): array
     {
         return [
             TextColumn::make('code')
+                ->searchable()
+                ->sortable()
                 ->translateLabel()
                 ->copyable()
                 ->copyMessage(__('Code Copied'))

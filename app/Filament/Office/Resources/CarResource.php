@@ -2,6 +2,7 @@
 
 namespace App\Filament\Office\Resources;
 
+use App\Filament\Office\Pages\CarService;
 use App\Filament\Office\Resources\CarResource\Pages;
 use App\Filament\Office\Resources\CarResource\RelationManagers;
 use App\Models\Car;
@@ -10,6 +11,7 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Resources\Pages\Page;
 
 class CarResource extends Resource
 {
@@ -81,4 +83,7 @@ class CarResource extends Resource
             'edit' => Pages\EditCar::route('/{record}/edit'),
         ];
     }
+
+
 }
+

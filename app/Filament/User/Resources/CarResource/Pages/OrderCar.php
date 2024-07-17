@@ -41,6 +41,7 @@ class OrderCar extends Page implements HasForms, HasInfolists
     {
         return __('Order Car');
     }
+
     public function getBreadcrumb(): ?string
     {
         return __('Order Car');
@@ -131,15 +132,18 @@ class OrderCar extends Page implements HasForms, HasInfolists
 
             Notification::make()
                 ->success()
-                ->title(__('filament-panels::resources/pages/edit-record.notifications.saved.title'))
+                ->title(__('Order placed successfully'))
+                ->body(__('Your order has been placed successfully.'))
                 ->send();
             $this->redirect(OrderResource::getUrl('view', [$order]));
+        } else {
+            Notification::make()
+                ->danger()
+                ->title(__('Insufficient balance'))
+                ->body(__('You do not have enough balance to complete this order. Please add funds to your account.'))
+                ->send();
         }
-        Notification::make()
-            ->danger()
-            ->title(__('Insufficient balance'))
-            ->body(__('You do not have enough balance to complete this order. Please add funds to your account.'))
-            ->send();
+
 
     }
 

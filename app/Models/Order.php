@@ -108,9 +108,9 @@ class Order extends Model
                                     ->label('Phone')
                                     ->translateLabel(),
                                 TextEntry::make('user.balance')
+                                    ->label('Balance')
                                     ->badge()
-                                    ->color(fn($record) => $record->user->balnace > 0 ? 'green' : 'red')
-                                    ->default(fn($record) => dd($record->user->balnace + 1))
+                                    ->color(fn($record) => $record->user->balance > 0 ? 'green' : 'red')
                                     ->icon('tabler-wallet')
                                     ->label('Balance')
                                     ->translateLabel(),

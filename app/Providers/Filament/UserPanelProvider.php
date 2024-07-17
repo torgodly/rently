@@ -27,11 +27,13 @@ class UserPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE,
                 fn() => view('filament.user.balance'))
             ->id('user')
             ->path('user')
             ->login(Login::class)
+            ->passwordReset()
             ->registration(Register::class)
             ->plugin(BreezyCore::make()
                 ->myProfile(

@@ -5,9 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CarResource\Pages;
 use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
-use App\Models\CarReference;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -42,6 +40,7 @@ class CarResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Car::query()->userCars())
             ->content(view('car'))
             ->filters(Car::TableFilter(), Tables\Enums\FiltersLayout::AboveContent)
             ->actions([

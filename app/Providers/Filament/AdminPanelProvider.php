@@ -40,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.4rem')
             ->login(Login::class)
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Amber,
                 'gray' => Color::Gray,

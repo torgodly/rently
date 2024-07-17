@@ -50,6 +50,7 @@ class OfficePanelProvider extends PanelProvider
             ->brandLogoHeight('2.4rem')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login(Login::class)
+            ->passwordReset()
             ->discoverResources(in: app_path('Filament/Office/Resources'), for: 'App\\Filament\\Office\\Resources')
             ->discoverPages(in: app_path('Filament/Office/Pages'), for: 'App\\Filament\\Office\\Pages')
             ->pages([

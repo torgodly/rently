@@ -111,7 +111,7 @@
     "The selected date range overlaps with unavailable dates.": "تتداخل الفترة المحددة مع التواريخ غير المتاحة.",
     "Reservation Period": "فترة الحجز",
     "Cancel Order": "إلغاء الطلب",
-    "Are you sure you want to cancel this order?, Please enter the reason for cancellation.": "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟، يرجى إدخال سبب الإلغاء." ,
+    "Are you sure you want to cancel this order?, Please enter the reason for cancellation.": "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟، يرجى إدخال سبب الإلغاء.",
     "Reason": "السبب",
     "Long": "خط الطول",
     "Lat": "خط العرض",
@@ -132,5 +132,13 @@
     "Order Car": "طلب سيارة",
     "Order Now": "اطلب الآن",
     "Management": "الإدارة",
-    "Your account is inactive, please contact the admin": "حسابك غير نشط، يرجى الاتصال بالمسؤول"
+    "Your account is inactive, please contact the admin": "حسابك غير نشط، يرجى الاتصال بالمسؤول",
+    "Order placed successfully": "تم تقديم الطلب بنجاح",
+    "Your order has been placed successfully.": "تم تقديم طلبك بنجاح.",
+    "Balance": "الرصيد",
+    "Car Service": "صيانة السيارة",
+    "Set the new mileage until the next service after the car has been serviced.": "قم بتعيين المسافة الجديدة حتى الصيانة القادمة بعد صيانة السيارة.",
+    "Miles Until Next Service": "المسافة حتى الصيانة القادمة",
+    "Car Service Completed": "تمت صيانة السيارة",
+    "The car has been serviced and is ready for rental. The new mileage until the next service is set.": "تم صيانة السيارة وهي جاهزة للإيجار. تم تعيين المسافة الجديدة حتى الصيانة القادمة."
 }

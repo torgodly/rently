@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Infolists\Components\PassportEntry;
 use App\Infolists\Components\PriceEntry;
 use Carbon\CarbonPeriod;
 use Filament\Forms\Components\Grid;
@@ -254,17 +253,21 @@ class Car extends Model implements HasMedia
                         TextInput::make('mileage')
                             ->prefix('km')
                             ->translateLabel()
+                            ->numeric()
                             ->label('Mileage')
                             ->required(),
                         TextInput::make('mileage_to_service')
                             ->prefix('km')
                             ->translateLabel()
+                            ->numeric()
                             ->label('Mileage To Service')
                             ->required(),
                         TextInput::make('seats')
                             ->prefixIcon('tabler-armchair')
                             ->translateLabel()
                             ->label('Seats')
+                            ->numeric()
+                            ->maxValue(10)
                             ->required(),
                         Select::make('transmission_type')
                             ->prefixIcon('tabler-manual-gearbox')
@@ -354,7 +357,13 @@ class Car extends Model implements HasMedia
 
     public function scopeMyCars($query)
     {
-        return $query->where('branch_id', auth()->user()->branch->id);
+        return $query->where('branch_id', auth()->user()->branch->id)->where('mileage_to_service', '>', 0);
+    }
+
+    //scop customer cars
+    public function scopeUserCars($query)
+    {
+        return $query->where('mileage_to_service', '>', 0);
     }
 
     public function reservations()
@@ -366,8 +375,8 @@ class Car extends Model implements HasMedia
 
     public function getUnavailableDatesAttribute()
     {
-        return $this->reservations->flatMap(function ($reservation) {
-            $dates = CarbonPeriod::create($reservation->pickup_date, $reservation->return_date->addday())->toArray();
+        return $this->reservations->where('status', '!=', 'Cancelled')->flatMap(function ($reservation) {
+            $dates = CarbonPeriod::create($reservation->pickup_date, $reservation->return_date)->toArray();
             return array_map(function ($date) {
                 return $date->format('Y-m-d');
             }, $dates);
@@ -379,12 +388,20 @@ class Car extends Model implements HasMedia
 
     //orders
 
+    public function service($mileage)
+    {
+        $this->mileage_to_service = $mileage;
+        $this->save();
+    }
+    //get unavailable dates for car
+    //eg. ['2024-07-01' , '2024-07-02']
+
     protected function getHeroAttribute(): string
     {
         return $this->getFirstMediaUrl('car_images');
     }
-    //get unavailable dates for car
-    //eg. ['2024-07-01' , '2024-07-02']
+
+    //service .. update mileage to service
 
     protected function getNameAttribute(): string
     {
