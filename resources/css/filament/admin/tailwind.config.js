@@ -10,5 +10,6 @@ export default {
         './resources/views/filament/user/*',
         './resources/views/filament/user/pages/*',
         './resources/views/*',
+
     ],
 }

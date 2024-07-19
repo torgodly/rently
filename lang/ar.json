@@ -140,5 +140,8 @@
     "Set the new mileage until the next service after the car has been serviced.": "قم بتعيين المسافة الجديدة حتى الصيانة القادمة بعد صيانة السيارة.",
     "Miles Until Next Service": "المسافة حتى الصيانة القادمة",
     "Car Service Completed": "تمت صيانة السيارة",
-    "The car has been serviced and is ready for rental. The new mileage until the next service is set.": "تم صيانة السيارة وهي جاهزة للإيجار. تم تعيين المسافة الجديدة حتى الصيانة القادمة."
+    "The car has been serviced and is ready for rental. The new mileage until the next service is set.": "تم صيانة السيارة وهي جاهزة للإيجار. تم تعيين المسافة الجديدة حتى الصيانة القادمة.",
+    "Verification Required": "التحقق مطلوب",
+    "Verify now": "التحقق الآن",
+    "Your account is not verified. Please verify your identity to continue.": "لم يتم التحقق من حسابك. يرجى التحقق من هويتك للمتابعة."
 }

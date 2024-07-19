@@ -27,7 +27,8 @@ class UserPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-
+            ->renderHook(PanelsRenderHook::BODY_START,
+                fn() => view('filament.user.identity-missing'))
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE,
                 fn() => view('filament.user.balance'))
             ->id('user')
