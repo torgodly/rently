@@ -1,49 +1,455 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
+<x-app-layout>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">كتاب<span>السيارات</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="تبديل التنقل">
+                <span class="oi oi-menu"></span> قائمة
+            </button>
 
-        .button-container {
-            text-align: center;
-        }
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="index.html" class="nav-link">الرئيسية</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">عنّا</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">الخدمات</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">الأسعار</a></li>
+                    <li class="nav-item"><a href="car.html" class="nav-link">السيارات</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">المدونة</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">تواصل معنا</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        .button {
-            display: inline-block;
-            width: 200px;
-            padding: 20px;
-            margin: 20px;
-            font-size: 24px;
-            text-align: center;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-        }
+    <!-- END nav -->
 
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-<div class="button-container">
-    <a href="admin/login" class="button">لوحة الإدارة</a>
-    <a href="office/login" class="button">لوحة الموظف</a>
-    <a href="user/login" class="button">لوحة المستخدم</a>
-</div>
-</body>
-</html>
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('{{ asset('images/bg_1.jpg') }}');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+                <div class="col-lg-8 ftco-animate">
+                    <div class="text w-100 text-center mb-md-5 pb-md-5">
+                        <h1 class="mb-4">طريقة سريعة وسهلة لاستئجار سيارة</h1>
+                        <p style="font-size: 18px;">نهر صغير اسمه دودن يمر بمكانهم ويزوده بالمواد اللازمة. إنه بلد الفردوس، حيث الأجزاء المحمصة</p>
+                        <a href="https://vimeo.com/45830194" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="ion-ios-play"></span>
+                            </div>
+                            <div class="heading-title ml-5">
+                                <span>خطوات سهلة لاستئجار سيارة</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-12 featured-top">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 d-flex align-items-center">
+                            <form action="#" class="request-form ftco-animate bg-primary">
+                                <h2>خطط لرحلتك</h2>
+                                <div class="form-group">
+                                    <label for="" class="label">مكان الاستلام</label>
+                                    <input type="text" class="form-control" placeholder="مدينة، مطار، محطة، إلخ">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label">مكان التوصيل</label>
+                                    <input type="text" class="form-control" placeholder="مدينة، مطار، محطة، إلخ">
+                                </div>
+                                <div class="d-flex">
+                                    <div class="form-group mr-2">
+                                        <label for="" class="label">تاريخ الاستلام</label>
+                                        <input type="text" class="form-control" id="book_pick_date" placeholder="تاريخ">
+                                    </div>
+                                    <div class="form-group ml-2">
+                                        <label for="" class="label">تاريخ التوصيل</label>
+                                        <input type="text" class="form-control" id="book_off_date" placeholder="تاريخ">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label">وقت الاستلام</label>
+                                    <input type="text" class="form-control" id="time_pick" placeholder="وقت">
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="استأجر سيارة الآن" class="btn btn-secondary py-3 px-4">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="services-wrap rounded-right w-100">
+                                <h3 class="heading-section mb-4">طريقة أفضل لاستئجار سيارتك المثالية</h3>
+                                <div class="row d-flex mb-4">
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">اختر مكان الاستلام</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">اختر أفضل صفقة</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">احجز سيارتك المستأجرة</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p><a href="#" class="btn btn-primary py-3 px-4">احجز سيارتك المثالية</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <span class="subheading">ما نقدمه</span>
+                    <h2 class="mb-2">المركبات المميزة</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="carousel-car owl-carousel">
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('{{ asset('images/car-1.jpg') }}');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">مرسيدس جراند سيدان</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">شيفروليه</span>
+                                        <p class="price ml-auto">$500 <span>/يوم</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">احجز الآن</a> <a href="#" class="btn btn-secondary py-2 ml-1">التفاصيل</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('{{ asset('images/car-2.jpg') }}');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">مرسيدس جراند سيدان</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">شيفروليه</span>
+                                        <p class="price ml-auto">$500 <span>/يوم</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">احجز الآن</a> <a href="#" class="btn btn-secondary py-2 ml-1">التفاصيل</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('{{ asset('images/car-3.jpg') }}');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">مرسيدس جراند سيدان</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">شيفروليه</span>
+                                        <p class="price ml-auto">$500 <span>/يوم</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">احجز الآن</a> <a href="#" class="btn btn-secondary py-2 ml-1">التفاصيل</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('{{ asset('images/car-4.jpg') }}');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">مرسيدس جراند سيدان</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">شيفروليه</span>
+                                        <p class="price ml-auto">$500 <span>/يوم</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">احجز الآن</a> <a href="#" class="btn btn-secondary py-2 ml-1">التفاصيل</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-about">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url('{{ asset('images/about.jpg') }}');">
+                </div>
+                <div class="col-md-6 wrap-about ftco-animate">
+                    <div class="heading-section heading-section-white pl-md-5">
+                        <span class="subheading">معلومات عنا</span>
+                        <h2 class="mb-4">مرحبًا بكم في Carbook</h2>
+
+                        <p>يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة. إنه بلد الفردوس، حيث الأجزاء المحمصة من الجمل تطير إلى فمك.</p>
+                        <p>في طريقها، التقت بنسخة. حذرت النسخة النص الصغير الأعمى، بأن المكان الذي أتت منه قد تم إعادة كتابته آلاف المرات وكل ما تبقى من أصله هو كلمة "و" وأن النص الصغير الأعمى يجب أن يدور ويعود إلى بلده الآمن. يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة. إنه بلد الفردوس، حيث الأجزاء المحمصة من الجمل تطير إلى فمك.</p>
+                        <p><a href="#" class="btn btn-primary py-3 px-4">ابحث عن مركبة</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">الخدمات</span>
+                    <h2 class="mb-3">أحدث خدماتنا</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">حفل زفاف</h3>
+                            <p>يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">نقل داخل المدينة</h3>
+                            <p>يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">نقل من المطار</h3>
+                            <p>يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">جولة في المدينة بالكامل</h3>
+                            <p>يمر نهر صغير اسمه دودن بالقرب من مكانهم ويزوده بالمواد اللازمة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-intro" style="background-image: url('{{ asset('images/bg_3.jpg') }}');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-md-6 heading-section heading-section-white ftco-animate">
+                    <h2 class="mb-3">هل تريد أن تكسب معنا؟ إذن لا تتأخر.</h2>
+                    <a href="#" class="btn btn-primary btn-lg">كن سائقاً</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section testimony-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">شهادات العملاء</span>
+                    <h2 class="mb-3">عملاء سعداء</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel ftco-owl">
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('{{ asset('images/person_1.jpg') }}')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">بعيدًا، خلف جبال الكلمات، بعيدًا عن بلدان فوكاليا وكونسونانتيا، تعيش النصوص العمياء.</p>
+                                    <p class="name">روجر سكوت</p>
+                                    <span class="position">مدير التسويق</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('{{ asset('images/person_2.jpg') }}')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">بعيدًا، خلف جبال الكلمات، بعيدًا عن بلدان فوكاليا وكونسونانتيا، تعيش النصوص العمياء.</p>
+                                    <p class="name">روجر سكوت</p>
+                                    <span class="position">مصمم واجهات</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('{{ asset('images/person_3.jpg') }}')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">بعيدًا، خلف جبال الكلمات، بعيدًا عن بلدان فوكاليا وكونسونانتيا، تعيش النصوص العمياء.</p>
+                                    <p class="name">روجر سكوت</p>
+                                    <span class="position">مصمم واجهات المستخدم</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('{{ asset('images/person_1.jpg') }}')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">بعيدًا، خلف جبال الكلمات، بعيدًا عن بلدان فوكاليا وكونسونانتيا، تعيش النصوص العمياء.</p>
+                                    <p class="name">روجر سكوت</p>
+                                    <span class="position">مطوّر ويب</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('{{ asset('images/person_1.jpg') }}')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">بعيدًا، خلف جبال الكلمات، بعيدًا عن بلدان فوكاليا وكونسونانتيا، تعيش النصوص العمياء.</p>
+                                    <p class="name">روجر سكوت</p>
+                                    <span class="position">محلل نظم</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-counter ftco-section img bg-light" id="section-counter">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="60">0</strong>
+                            <span>سنوات <br>الخبرة</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="1090">0</strong>
+                            <span>إجمالي <br>السيارات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="2590">0</strong>
+                            <span>العملاء <br>السعداء</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text d-flex align-items-center">
+                            <strong class="number" data-number="67">0</strong>
+                            <span>إجمالي <br>الفروع</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>book</span></a></h2>
+                        <p>بعيدًا ، خلف جبال الكلمة ، بعيدًا عن دول فوكاليا وكونسونانتيا ، تعيش النصوص العمياء.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">معلومات</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">حول</a></li>
+                            <li><a href="#" class="py-2 d-block">خدمات</a></li>
+                            <li><a href="#" class="py-2 d-block">الشروط والأحكام</a></li>
+                            <li><a href="#" class="py-2 d-block">أفضل ضمان سعر</a></li>
+                            <li><a href="#" class="py-2 d-block">سياسة الخصوصية وملفات تعريف الارتباط</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">دعم العملاء</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">التعليمات</a></li>
+                            <li><a href="#" class="py-2 d-block">خيار الدفع</a></li>
+                            <li><a href="#" class="py-2 d-block">نصائح الحجز</a></li>
+                            <li><a href="#" class="py-2 d-block">كيف تعمل</a></li>
+                            <li><a href="#" class="py-2 d-block">اتصل بنا</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">هل لديك أسئلة؟</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">203 شارع زائف ، ماونتن فيو ، سان فرانسيسكو ، كاليفورنيا ، الولايات المتحدة الأمريكية</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>
+                        حقوق الطبع والنشر &copy;{{now()->year}} جميع الحقوق محفوظة | هذا القالب مصنوع بحب <i class="icon-heart color-danger" aria-hidden="true"></i> بواسطة <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+</x-app-layout>
