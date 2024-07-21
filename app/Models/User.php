@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Filament\Notifications\Notification;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +28,7 @@ class User extends Authenticatable implements HasAvatar, FilamentUser
         'phone',
         'type',
         'passport',
+        'id_verified',
         'password',
         'balance',
         'avatar_url',
@@ -142,4 +144,55 @@ class User extends Authenticatable implements HasAvatar, FilamentUser
 
     //redeem voucher
 
+    //isVerified
+    public function isVerified():bool
+    {
+        return $this->id_verified;
+    }
+
+    //scope need verification
+    public function scopeNeedVerification($query)
+    {
+        return $query->where('id_verified', false)->where('type', 'user');
+    }
+
+    //confirm Id
+    public function verify()
+    {
+        $this->id_verified = true;
+        $this->save();
+        Notification::make()
+            ->success()
+            ->icon('heroicon-o-check-circle')
+            ->title(__('ID Verified'))
+            ->body(__('Your ID has been verified'))
+            ->sendToDatabase($this);
+        Notification::make()
+            ->success()
+            ->icon('heroicon-o-check-circle')
+            ->title(__('ID Verified'))
+            ->body(__('The user ID has been verified'))
+            ->send();
+    }
+
+    //decline Id
+    public function decline()
+    {
+//        $this->id_verified = false;
+//        $this->passport = null;
+//        $this->save();
+
+        Notification::make()
+            ->error()
+            ->icon('heroicon-o-x-circle')
+            ->title(__('ID Declined'))
+            ->body(__('Your ID has been declined'))
+            ->sendToDatabase($this);
+        Notification::make()
+            ->error()
+            ->icon('heroicon-o-x-circle')
+            ->title(__('ID Declined'))
+            ->body(__('The user ID has been declined'))
+            ->send();
+    }
 }

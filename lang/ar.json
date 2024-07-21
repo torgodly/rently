@@ -143,5 +143,16 @@
     "The car has been serviced and is ready for rental. The new mileage until the next service is set.": "تم صيانة السيارة وهي جاهزة للإيجار. تم تعيين المسافة الجديدة حتى الصيانة القادمة.",
     "Verification Required": "التحقق مطلوب",
     "Verify now": "التحقق الآن",
-    "Your account is not verified. Please verify your identity to continue.": "لم يتم التحقق من حسابك. يرجى التحقق من هويتك للمتابعة."
+    "Your account is not verified. Please verify your identity to continue.": "لم يتم التحقق من حسابك. يرجى التحقق من هويتك للمتابعة.",
+    "Identity Update": "تحديث الهوية",
+    "Please upload a clear image of your passport to confirm your identity. Ensure that the image is clear and legible to avoid any delays in the verification process.": "يرجى تحميل صورة واضحة لجواز سفرك لتأكيد هويتك. تأكد من أن الصورة واضحة ومقروءة لتجنب أي تأخير في عملية التحقق.",
+    "Passport": "جواز سفر",
+    "Submit": "إرسال",
+    "ID Has Been Sent": "تم إرسال الهوية",
+    "Your ID has been successfully sent to the admin waiting For Confirmation.": "تم إرسال الهوية بنجاح إلى المسؤول في انتظار التأكيد.",
+    "Identity Verification": "التحقق من الهوية",
+    "User Management": "إدارة المستخدم",
+    "Decline": "رفض",
+    "Verify": "تحقق",
+    "Are you sure you want to verify this user?": "هل أنت متأكد أنك تريد التحقق من هذا المستخدم؟"
 }

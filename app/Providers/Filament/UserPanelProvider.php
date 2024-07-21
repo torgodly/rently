@@ -4,6 +4,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use App\Filament\Auth\Register;
+use App\Livewire\MyCustomComponent;
+use App\Livewire\MyCustomProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -37,6 +39,7 @@ class UserPanelProvider extends PanelProvider
             ->passwordReset()
             ->registration(Register::class)
             ->plugin(BreezyCore::make()
+                ->myProfileComponents([MyCustomProfile::class])
                 ->myProfile(
                     shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
                     shouldRegisterNavigation: false, // Adds a main navigation item for the My Profile page (default = false)

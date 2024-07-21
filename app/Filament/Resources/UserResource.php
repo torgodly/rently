@@ -22,7 +22,7 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Management');
+        return __('User Management');
     }
 
     public static function getModelLabel(): string

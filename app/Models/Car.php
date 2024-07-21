@@ -53,6 +53,7 @@ class Car extends Model implements HasMedia
     {
         return [
             Filter::make('Location')
+                ->visible(fn() => auth()->user()->isUser())
                 ->columnSpan(2)
                 ->form([
                     Grid::make()->schema([
@@ -116,6 +117,18 @@ class Car extends Model implements HasMedia
                 ->searchable()
                 ->optionsLimit(12000),
 
+            //fuel type
+            SelectFilter::make('fuel_type')
+                ->label('Fuel Type')
+                ->translateLabel()
+                ->options([
+                    'petrol' => 'Petrol',
+                    'diesel' => 'Diesel',
+                    'electric' => 'Electric',
+                ]),
+
+
+
             Filter::make('Price')
                 ->columnSpan(2)
                 ->form([
@@ -143,6 +156,13 @@ class Car extends Model implements HasMedia
                             fn(Builder $query, $price_to): Builder => $query->where('price_per_day', '<=', $price_to)
                         );
                 }),
+
+            SelectFilter::make('seats')
+                ->label('Seats')
+                ->translateLabel()
+                ->options(collect(range(1, 10))->mapWithKeys(function ($seat) {
+                    return [$seat => $seat];
+                })->toArray()),
 
             SelectFilter::make('branch_id')
                 ->label('Branch')

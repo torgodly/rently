@@ -16,6 +16,7 @@ class CarResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-car';
 
+
     public static function getNavigationGroup(): ?string
     {
         return __('Management');
@@ -36,7 +37,6 @@ class CarResource extends Resource
         return $form
             ->schema(Car::FromFields())->columns(3);
     }
-
     public static function table(Table $table): Table
     {
         return $table

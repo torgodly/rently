@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('passport')->nullable();
+            $table->boolean('id_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('type')->default(UserType::User);
             $table->boolean('active')->default(true);
