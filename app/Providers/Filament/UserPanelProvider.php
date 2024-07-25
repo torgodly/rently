@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use App\Filament\Auth\Register;
+use App\Filament\Widgets\StatsOverview;
 use App\Livewire\MyCustomComponent;
 use App\Livewire\MyCustomProfile;
 use Filament\Http\Middleware\Authenticate;
@@ -53,6 +54,11 @@ class UserPanelProvider extends PanelProvider
                 'yellow' => Color::Yellow,
                 'red' => Color::Red,
                 'green' => Color::Green,
+                'orange' => Color::Orange,
+                'purple' => Color::Purple,
+                'cyan' => Color::Cyan,
+                'teal' => Color::Teal,
+                'lime'  => Color::Lime,
             ])
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
@@ -62,8 +68,7 @@ class UserPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverWidgets(in: app_path('Filament/User/Widgets'), for: 'App\\Filament\\User\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                StatsOverview::class
             ])
             ->middleware([
                 EncryptCookies::class,

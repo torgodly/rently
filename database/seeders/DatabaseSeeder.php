@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\CarReference;
 use App\Models\Order;
 use App\Models\User;
@@ -24,9 +25,11 @@ class DatabaseSeeder extends Seeder
         Voucher::factory(100)->create();
         $this->call(CarReferencesTableSeeder::class);
 //        $location = \App\Models\Location::factory();
-        $branch = \App\Models\Branch::factory()->create();
-        $car = \App\Models\Car::factory(10)->create();
-//        Order::factory(4)->create();
+//        $branch = \App\Models\Branch::factory()->create();
+//        $car = \App\Models\Car::factory(10)->create();
+        \App\Models\User::factory()->create();
+        Branch::factory(4)->create();
+        Order::factory(100)->create();
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@admin.com',

@@ -22,7 +22,7 @@ class BranchFactory extends Factory
             'city' => $this->faker->city,
             'country' => $this->faker->country,
             'manager_id' => \App\Models\User::factory()->create([
-                'email' => 'manager@manager.com',
+                'email' => $this->faker->unique()->safeEmail,
                 'type' => UserType::Manager->value,
             ]),
             'status' => true,

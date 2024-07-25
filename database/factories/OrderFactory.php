@@ -16,16 +16,16 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
-        $location = \App\Models\Location::factory();
-        $car = \App\Models\Car::factory();
+
         return [
-            'user_id' => \App\Models\User::factory(),
-            'car_id' => $car,
+            'user_id' => 1,
+            'car_id' => \App\Models\Car::factory(),
             'pickup_date' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'pickup_location_id' => $location,
+            'pickup_location_id' => \App\Models\Location::factory(),
             'return_date' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
-            'return_location_id' => $location,
+            'return_location_id' => \App\Models\Location::factory(),
             'status' => $this->faker->randomElement(["Pending", "Confirmed", "Active", "Completed", "Cancelled"]),
+//            'status' => 'Completed',
             "price" => 1,
             'discount' => 1,
 

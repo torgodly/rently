@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
+use App\Filament\Widgets\BranchReportChart;
+use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -35,9 +37,11 @@ class OfficePanelProvider extends PanelProvider
                 'yellow' => Color::Yellow,
                 'red' => Color::Red,
                 'green' => Color::Green,
-
-
-
+                'orange' => Color::Orange,
+                'purple' => Color::Purple,
+                'cyan' => Color::Cyan,
+                'teal' => Color::Teal,
+                'lime'  => Color::Lime,
             ])
             ->plugin(BreezyCore::make()
                 ->myProfile(
@@ -58,8 +62,9 @@ class OfficePanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Office/Widgets'), for: 'App\\Filament\\Office\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                StatsOverview::class,
+
+                BranchReportChart::class
             ])
             ->middleware([
                 EncryptCookies::class,

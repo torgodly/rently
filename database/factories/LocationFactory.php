@@ -17,7 +17,7 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->randomElement([
+            'name' => $this->faker->randomElement([
                     "مطار طرابلس الدولي",
                     "مطار معيتيقة الدولي",
                     "مطار بنينا الدولي",

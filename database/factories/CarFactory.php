@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Branch;
 use App\Models\Car;
 use App\Models\CarReference;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -35,7 +36,7 @@ class CarFactory extends Factory
             'fuel_type' => $this->faker->randomElement(['gasoline', 'diesel', 'electric']),
             'price_per_day' => $this->faker->randomFloat(2, 50, 500),
             'available' => $this->faker->boolean,
-            'branch_id' => 1,
+            'branch_id' => Branch::inRandomOrder()->first(),
             'description' => $this->faker->text,
         ];
 
