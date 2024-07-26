@@ -173,5 +173,8 @@
     "Total number of cars available": "إجمالي عدد السيارات المتاحة",
     "Available Cars": "السيارات المتاحة",
     "Cars currently available for rent": "السيارات المتاحة للإيجار حالياً",
-    "Branches Report Chart": "تقرير الفروع"
+    "Branches Report Chart": "تقرير الفروع",
+    "Your message has been sent successfully!": "تم إرسال رسالتك بنجاح!",
+    "subject": "الموضوع",
+    "message": "الرسالة"
 }
