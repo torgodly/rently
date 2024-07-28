@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->login(Login::class)
             ->passwordReset()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#20c997',
                 'gray' => Color::Gray,
                 'blue' => Color::Blue,
                 'yellow' => Color::Yellow,

@@ -31,7 +31,7 @@ class OfficePanelProvider extends PanelProvider
             ->id('office')
             ->path('office')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#20c997',
                 'gray' => Color::Gray,
                 'blue' => Color::Blue,
                 'yellow' => Color::Yellow,
@@ -50,6 +50,8 @@ class OfficePanelProvider extends PanelProvider
                     hasAvatars: true, // Enables the avatar upload form component (default = false)
                     slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
                 )->enableTwoFactorAuthentication())
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('2.4rem')
             ->brandLogo(asset('images/logo.png'))
             ->brandLogoHeight('2.4rem')
             ->viteTheme('resources/css/filament/admin/theme.css')

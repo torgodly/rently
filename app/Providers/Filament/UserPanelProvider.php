@@ -48,7 +48,7 @@ class UserPanelProvider extends PanelProvider
                     slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
                 )->enableTwoFactorAuthentication())
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#20c997',
                 'gray' => Color::Gray,
                 'blue' => Color::Blue,
                 'yellow' => Color::Yellow,
@@ -60,6 +60,8 @@ class UserPanelProvider extends PanelProvider
                 'teal' => Color::Teal,
                 'lime'  => Color::Lime,
             ])
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('2.4rem')
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->pages([
