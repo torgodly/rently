@@ -8966,7 +8966,7 @@ h1, h2, h3, h4, h5,
   .ftco-about:after {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     bottom: 0;
     content: '';
     background: #01d28e;
@@ -9301,14 +9301,14 @@ textarea.form-control {
       font-size: 28px; } }
 
 .heading-section.heading-section-white .subheading {
-  color: rgba(255, 255, 255, 0.9); }
+  color: black; }
 
 .heading-section.heading-section-white h2 {
   font-size: 40px;
-  color: #fff; }
+  color: black; }
 
 .heading-section.heading-section-white p {
-  color: rgba(255, 255, 255, 0.9); }
+  color: black; }
 
 .img,
 .blog-img,
@@ -9935,6 +9935,16 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+
+.car-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust transparency here */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 @keyframes loader-dash {
   0% {
