@@ -383,7 +383,9 @@ class Car extends Model implements HasMedia
     //scop customer cars
     public function scopeUserCars($query)
     {
-        return $query->where('mileage_to_service', '>', 0);
+        return $query->where('mileage_to_service', '>', 0)->wherehas('branch', function ($query) {
+            $query->where('status', true);
+        });
     }
 
     public function reservations()

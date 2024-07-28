@@ -37,6 +37,8 @@ class CarResource extends Resource
     {
         return $table
             ->query(Car::query()->userCars())
+            ->paginated([9, 18, 36, 72, 'all'])
+            ->defaultPaginationPageOption(9)
             ->content(view('car'))
             ->columns([
                 //
