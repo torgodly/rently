@@ -45,9 +45,11 @@ class CarResource extends Resource
         return $table
             ->query(Car::query()->myCars())
             ->content(view('car'))
-            ->filters([
-
-            ])
+            ->paginated([9, 18, 36, 72, 'all'])
+            ->defaultPaginationPageOption(9)
+            ->filters(
+                Car::TableFilter(), Tables\Enums\FiltersLayout::AboveContent
+            )
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

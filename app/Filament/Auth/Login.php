@@ -53,6 +53,12 @@ class Login extends BaseAuth
             $this->throwInactiveAccountException();
         }
 
+        if ($user->branch && $user->branch->status == 0) {
+            Filament::auth()->logout();
+            $this->throwInactiveBranchException();
+        }
+
+
         session()->regenerate();
 
         return app(CustomLoginResponse::class);
@@ -61,6 +67,14 @@ class Login extends BaseAuth
     {
         throw ValidationException::withMessages([
             'data.email' => __('Your account is inactive, please contact the admin'),
+        ]);
+    }
+
+    //throwInactiveBranchException
+    protected function throwInactiveBranchException(): never
+    {
+        throw ValidationException::withMessages([
+            'data.email' => __('Your branch is inactive, please contact the admin'),
         ]);
     }
 }

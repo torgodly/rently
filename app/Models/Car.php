@@ -60,13 +60,13 @@ class Car extends Model implements HasMedia
                         Select::make('pickup_location_id')
                             ->label('Pickup Location')
                             ->translateLabel()
-                            ->options(Location::pluck('name', 'id')->toArray())
+                            ->options(Location::Active()->pluck('name', 'id')->toArray())
                             ->searchable()
                             ->optionsLimit(12000),
                         Select::make('return_location_id')
                             ->label('Return Location')
                             ->translateLabel()
-                            ->options(Location::pluck('name', 'id')->toArray())
+                            ->options(Location::Active()->pluck('name', 'id')->toArray())
                             ->searchable()
                             ->optionsLimit(12000),
                     ])
@@ -170,6 +170,16 @@ class Car extends Model implements HasMedia
                 ->options(Branch::all()->pluck('name', 'id')->toArray())
                 ->searchable()
                 ->optionsLimit(12000),
+
+            //available
+            SelectFilter::make('available')
+                ->label('Available')
+                ->translateLabel()
+                ->visible(fn() => !auth()->user()->isUser())
+                ->options([
+                    '1' => __('Available'),
+                    '0' => __('Not Available'),
+                ]),
 
         ];
     }
@@ -383,7 +393,7 @@ class Car extends Model implements HasMedia
     //scop customer cars
     public function scopeUserCars($query)
     {
-        return $query->where('mileage_to_service', '>', 0)->wherehas('branch', function ($query) {
+        return $query->where('mileage_to_service', '>', 0)->where('available', true)->wherehas('branch', function ($query) {
             $query->where('status', true);
         });
     }

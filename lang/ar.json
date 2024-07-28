@@ -176,5 +176,7 @@
     "Branches Report Chart": "تقرير الفروع",
     "Your message has been sent successfully!": "تم إرسال رسالتك بنجاح!",
     "subject": "الموضوع",
-    "message": "الرسالة"
+    "message": "الرسالة",
+    "Your branch is inactive, please contact the admin": "فرعك غير نشط، يرجى الاتصال بالمسؤول",
+    "Not Available": "غير متاح"
 }

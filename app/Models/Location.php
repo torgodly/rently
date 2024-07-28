@@ -146,4 +146,12 @@ class Location extends Model
     {
         return $query->where('branch_id', auth()->user()->branch->id);
     }
+
+//    active location scope
+    public function scopeActive($query)
+    {
+        return $query->wherehas('branch', function ($query) {
+            $query->where('status', 1);
+        });
+    }
 }
