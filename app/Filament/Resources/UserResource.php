@@ -53,7 +53,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->translateLabel()
                     ->tel()
-                    ->unique('users', 'email', ignoreRecord: true)
+                    ->unique('users', 'phone', ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
