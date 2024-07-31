@@ -76,14 +76,14 @@ class OrderCar extends Page implements HasForms, HasInfolists
                                 ->preload()
                                 ->translateLabel()
                                 ->label('Pickup Location')
-                                ->relationship('pickupLocation', 'name')
+                                ->options(fn() => $this->record->branch->locations->pluck('name', 'id'))
                                 ->required(),
                             Select::make('return_location_id')
                                 ->searchable()
                                 ->preload()
                                 ->translateLabel()
                                 ->label('Return Location')
-                                ->relationship('returnLocation', 'name')
+                                ->options(fn() => $this->record->branch->locations->pluck('name', 'id'))
                                 ->required(),
                             DateRangePicker::make('date_range')
                                 ->disabledDates($this->record->getUnavailableDatesAttribute())
