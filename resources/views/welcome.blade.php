@@ -14,15 +14,37 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <!-- Navigation Items (Center) -->
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active"><a href="#hero" class="nav-link">الرئيسية</a></li>
+                <ul class="navbar-nav mx-auto" dir="rtl">
+                    <li class="nav-item"><a href="#hero" class="nav-link">الرئيسية</a></li>
+                    <li class="nav-item"><a href="#cars" class="nav-link">السيارات</a></li>
                     <li class="nav-item"><a href="#about" class="nav-link">عنّا</a></li>
                     <li class="nav-item"><a href="#services" class="nav-link">الخدمات</a></li>
-                    <li class="nav-item"><a href="#pricing" class="nav-link">الأسعار</a></li>
-                    <li class="nav-item"><a href="#cars" class="nav-link">السيارات</a></li>
                     <li class="nav-item"><a href="#contact" class="nav-link">تواصل معنا</a></li>
                 </ul>
             </div>
+            <script>
+                // Function to update the active class based on the current fragment
+                function updateActiveNav() {
+                    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+                    const currentFragment = window.location.hash;
+
+                    navLinks.forEach(link => {
+                        const parentLi = link.parentElement;
+
+                        if (link.getAttribute('href') === currentFragment) {
+                            parentLi.classList.add('active');
+                        } else {
+                            parentLi.classList.remove('active');
+                        }
+                    });
+                }
+
+                // Update active class on page load
+                window.addEventListener('load', updateActiveNav);
+
+                // Update active class when the hash changes
+                window.addEventListener('hashchange', updateActiveNav);
+            </script>
             <a class="navbar-brand" href="#hero"><img src="{{asset('images/logo.png')}}" width="100"></a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -94,8 +116,8 @@
                                     <input type="text" class="form-control" id="time_pick" placeholder="وقت">
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="استأجر سيارة الآن"
-                                           class="btn btn-secondary py-3 px-4">
+
+                                    <a href="/user/login" class="btn btn-secondary py-3 px-4">استأجر سيارة الآن</a>
                                 </div>
                             </form>
                         </div>
@@ -131,7 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p><a href="#" class="btn btn-primary py-3 px-4">احجز سيارتك المثالية</a></p>
+                                <p><a href="/user/cars" class="btn btn-primary py-3 px-4">احجز سيارتك المثالية</a></p>
                             </div>
                         </div>
                     </div>

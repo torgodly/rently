@@ -107,41 +107,52 @@ class OrderCar extends Page implements HasForms, HasInfolists
 
     public function save(): void
     {
-        $data = $this->form->getState();
-        list($start, $end) = explode(' - ', $data['date_range']);
-        $data['pickup_date'] = Carbon::createFromFormat('d/m/Y', $start)->format('Y-m-d');
-        $data['return_date'] = Carbon::createFromFormat('d/m/Y', $end)->format('Y-m-d');
-        $data['price'] = $this->record->price_per_day;
-        $data['discount'] = $this->record->discount;
-        $data['user_id'] = auth()->id();
+        if (!auth()->user()->isVerified()) {
+            $this->redirect('/user/my-profile');
+            Notification::make()
+                ->title(__("You are not verified"))
+                ->body(__("Please verify your account to continue"))
+                ->danger()
+                ->icon('tabler-alert-triangle')
+                ->send();
+        } else {
+            $data = $this->form->getState();
+            list($start, $end) = explode(' - ', $data['date_range']);
+            $data['pickup_date'] = Carbon::createFromFormat('d/m/Y', $start)->format('Y-m-d');
+            $data['return_date'] = Carbon::createFromFormat('d/m/Y', $end)->format('Y-m-d');
+            $data['price'] = $this->record->price_per_day;
+            $data['discount'] = $this->record->discount;
+            $data['user_id'] = auth()->id();
 
-        $number_of_days = Carbon::parse($data['pickup_date'])->diffInDays(Carbon::parse($data['return_date'])) + 1;
-        $pricePerDay = $this->record->price_per_day;
-        $totalPrice = $pricePerDay * $number_of_days;
-        $discountAmount = $totalPrice * ($this->record->discount / 100);
-        $discountedPrice = $totalPrice - $discountAmount;
-        if (Auth::user()->hasBalance($discountedPrice)) {
-            try {
+            $number_of_days = Carbon::parse($data['pickup_date'])->diffInDays(Carbon::parse($data['return_date'])) + 1;
+            $pricePerDay = $this->record->price_per_day;
+            $totalPrice = $pricePerDay * $number_of_days;
+            $discountAmount = $totalPrice * ($this->record->discount / 100);
+            $discountedPrice = $totalPrice - $discountAmount;
+            if (Auth::user()->hasBalance($discountedPrice)) {
+                try {
 
-                $order = $this->record->reservations()->create($data);
+                    $order = $this->record->reservations()->create($data);
 
 
-            } catch (Halt $exception) {
-                return;
+                } catch (Halt $exception) {
+                    return;
+                }
+
+                Notification::make()
+                    ->success()
+                    ->title(__('Order placed successfully'))
+                    ->body(__('Your order has been placed successfully.'))
+                    ->send();
+                $this->redirect(OrderResource::getUrl('view', [$order]));
+            } else {
+                Notification::make()
+                    ->danger()
+                    ->title(__('Insufficient balance'))
+                    ->body(__('You do not have enough balance to complete this order. Please add funds to your account.'))
+                    ->send();
             }
 
-            Notification::make()
-                ->success()
-                ->title(__('Order placed successfully'))
-                ->body(__('Your order has been placed successfully.'))
-                ->send();
-            $this->redirect(OrderResource::getUrl('view', [$order]));
-        } else {
-            Notification::make()
-                ->danger()
-                ->title(__('Insufficient balance'))
-                ->body(__('You do not have enough balance to complete this order. Please add funds to your account.'))
-                ->send();
         }
 
 

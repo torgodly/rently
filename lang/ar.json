@@ -178,5 +178,7 @@
     "subject": "الموضوع",
     "message": "الرسالة",
     "Your branch is inactive, please contact the admin": "فرعك غير نشط، يرجى الاتصال بالمسؤول",
-    "Not Available": "غير متاح"
+    "Not Available": "غير متاح",
+    "You are not verified": "لم تتم التحقق منك",
+    "Please verify your account to continue": "يرجى التحقق من حسابك للمتابعة"
 }

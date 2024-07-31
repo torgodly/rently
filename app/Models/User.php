@@ -183,13 +183,13 @@ class User extends Authenticatable implements HasAvatar, FilamentUser
 //        $this->save();
 
         Notification::make()
-            ->error()
+            ->danger()
             ->icon('heroicon-o-x-circle')
             ->title(__('ID Declined'))
             ->body(__('Your ID has been declined'))
             ->sendToDatabase($this);
         Notification::make()
-            ->error()
+            ->danger()
             ->icon('heroicon-o-x-circle')
             ->title(__('ID Declined'))
             ->body(__('The user ID has been declined'))

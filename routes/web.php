@@ -41,3 +41,7 @@ Route::post('/message/create', function () {
     return redirect(url()->previous() . '#contact')->with('success', __('Your message has been sent successfully!'));
 })->name('message.create');
 
+//my profile
+Route::get('/profile', function () {
+    return redirect('user/my-profile');
+})->name('profile');
