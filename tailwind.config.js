@@ -34,7 +34,7 @@ export default {
                 // sans: ['Figtree', sans-serif;],
             },
             colors:{
-                primary: "#086bd6"
+                primary: "#20c997"
             }
         },
     },
