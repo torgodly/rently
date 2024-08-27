@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 require __DIR__.'/auth.php';
 
 Route::get('/', function () {
-    $cars = Car::inRandomOrder()->take(8)->get();
+    $cars = Car::inRandomOrder()->take(6)->get();
     return view('welcome', compact('cars'));
 })->name('welcome');
 
