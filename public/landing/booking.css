@@ -1,0 +1,397 @@
+body {
+  direction: rtl;
+  font-family: "Alexandria", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Alexandria", sans-serif;
+}
+:root {
+  --main-color: #f1db25;
+  --second-color: #1c1c1c;
+  --text-color: #110f0f;
+  --gradient: linear-gradient(#1c1c1c);
+}
+
+/*custom scroll bar */
+html::-webkit-scrollbar {
+  width: 0.5rem;
+}
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+html::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 5rem;
+}
+section {
+  padding: 50px 100px;
+}
+
+
+
+
+
+
+/*booking*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 10px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Alexandria", sans-serif;
+}
+.book{
+  display: flex;
+  height: 134vh;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: url(img/bookinghome.avif) ;
+  content: "";
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+
+.container_bookform{
+  max-width: 700px;
+  width: 100%;
+  padding: 8px 34px;
+ box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+ border-radius: 34px;
+ padding: 30px;
+ text-align: center;
+ border: 1px solid rgba(255, 255, 255, 0.5);
+ backdrop-filter: blur(9px);
+ -webkit-backdrop-filter: blur(9px);
+}
+.container_bookform .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.container_bookform .title::before{
+  content: "";
+  position: absolute;
+  right: 250px;
+  bottom: -14px;
+  height: 3px;
+  width: 135px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #1c1c1c, #f1db25);
+}
+.container_bookform form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+  color:#ffffff;
+}
+.container_bookform form .user-details .input-box{
+  width: calc(100% / 2 - 20px);
+  margin: 10px;
+    padding: 10px;
+
+}
+
+form .input-box span.details{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
+  
+}
+
+
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #f1db25;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: #fff;
+
+}
+.user-details .input-box input{
+  margin: 10px;
+  padding: 10px;
+  color: #ffffff;
+}
+.user-details .input-box .details:focus,
+.user-details .input-box .details:valid{
+  border-color:#f1db25;
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+ }
+ form .gender-details img{
+  width: 30px; 
+  height: auto
+
+ }
+
+ form  .gender-details  .category{
+   display: flex;
+   width: 95%;
+   margin: 41px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+   color: #fff;
+   
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+  margin: 10px;
+  color: #fff;
+
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #f1db25;
+   border-color: #d9d9d9;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+ form .button{
+   height: 45px;
+   margin: 45px 0
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 35px;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #1c1c1c, #f1db25);
+   padding: 12px 20px;
+   cursor: pointer;
+   font-size: 16px;
+   border: 2px solid transparent;
+   transition: 0.3s ease;
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(135deg, #1c1c1c, #f1db25);
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+
+  }
+ @media(max-width: 584px){
+ .container_bookform{
+  max-width: 100%;
+}
+ .container_bookform .title::before{
+  width: 100%;
+  right: 15px;
+}
+ .container_bookform form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .container_bookform  form  .gender-details  .category{
+    width: 100%;
+  }
+  .container_bookform form .user-details{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+  
+  }
+  @media(max-width: 459px){
+  .container_bookform .content .category{
+    flex-direction: column;
+  }
+}
+
+
+
+/*footer*/
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: -2000;
+  background: linear-gradient(to right, #000000, #1c1c1c);
+  color: #fff;
+  padding: 10px 0 30px;
+  font-size: 13px;
+  line-height: 20px;
+}
+.row {
+  width: 96%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.col {
+  flex-basis: 25%;
+  padding: 13px;
+}
+
+
+.col:nth-child(2) .col:nth-child(3) {
+  flex-basis: 15%;
+}
+
+.col h3 {
+  width: fit-content;
+  margin-bottom: 40px;
+  position: relative;
+}
+.email-id {
+  width: fit-content;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0;
+}
+ul li {
+  list-style: none;
+  margin-bottom: 12px;
+}
+ul li a {
+  color: #fff;
+}
+
+.col   form {
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.col    form .fa {
+  font-size: 18px;
+  margin-right: 10px;
+}
+.col  form i {
+  color:#f1db25;
+}
+.col   form input {
+  width: 100%;
+  background: transparent;
+  color: #ccc;
+  border: 0;
+  outline: none;
+}
+.col   form button {
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+.fa-solid {
+  color: #f1db25;
+}
+.col   form button .fas {
+  font-size: 16px;
+}
+.social-icons .fa-brands {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 35px;
+  font-size: 20px;
+  color: #1c1c1c;
+  background: #f1db25;
+  margin-right: 15px;
+  cursor: pointer;
+}
+hr {
+  width: 90%;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  margin: 20px auto;
+}
+.copyright {
+  text-align: center;
+}
+.underline {
+  width: 100%;
+  height: 5px;
+  background: #767676;
+  border-radius: 3px;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  overflow: hidden;
+}
+.underline span {
+  width: 15px;
+  height: 100%;
+  background: #fff;
+  border-radius: 3px;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  animation: moving 2s linear infinite;
+}
+@keyframes moving {
+  0% {
+    left: -20px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Alexandria", sans-serif;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Alexandria", sans-serif;
+  background: #ffffff;
+}
+/*end footer*/
