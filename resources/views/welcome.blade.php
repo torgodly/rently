@@ -5,129 +5,17 @@
 
         <div class="text">
             <h1>
-                موقع <span>أجّرلي  <br/>   </span>لإيجار السيارات
+                موقع <span>أجّرلي  <br />   </span>لإيجار السيارات
             </h1>
 
             <p>
-                مرحبا بكم في موقعنا لإيجار السيارات<br/>
-                نقدم لكم جميع الاحتياجات لإستئجار السيارة الخاصة بك <br/>
+                مرحبا بكم في موقعنا لإيجار السيارات<br />
+                نقدم لكم جميع الاحتياجات لإستئجار السيارة الخاصة بك <br />
                 يوفر موقعنا الإلكتروني طريقة سلسة ومريحة للعثور على السيارة المثالية
             </p>
-            <!--<div class="app-stores">
-              <img src="../img/ios.png" alt="" />
-              <img src="../img/512x512.png" alt="" />
-            </div>-->
+
         </div>
 
-        <div class="form-box">
-            <!------------------- login form -------------------------->
-            <!--<div class="login-container" id="login">
-              <div class="top">
-                <span
-                  >لايوجد لديك حساب؟
-                  <a href="#" onclick="register()">انشاء حساب</a></span
-                >
-                <header>تسجيل الدخول</header>
-              </div>
-              <div class="input-box">
-                <input
-                  type="text"
-                  class="input-field"
-                  placeholder="الاسم او البريد الالكتروني"
-                />
-                <i class="bx bx-user"></i>
-              </div>
-              <div class="input-box">
-                <input
-                  type="password"
-                  class="input-field"
-                  placeholder="كلمة السر"
-                />
-                <i class="bx bx-lock-alt"></i>
-              </div>
-              <div class="input-box">
-                <input type="submit" class="submit" value="دخول" />
-              </div>
-              <div class="two-col">
-                <div class="one">
-                  <input type="checkbox" id="login-check" />
-                  <label for="login-check">تدكر</label>
-                </div>
-                <div class="two">
-                  <label><a href="#">نسيت كلمة السر؟</a></label>
-                </div>
-              </div>
-            </div>-
-            <!------------------- registration form -------------------------->
-            <!--  <div class="register-container" id="register">
-                <div class="top">
-                  <span
-                    >لديك حساب ؟<a href="#" onclick="login()">تسجيل الدخول</a></span
-                  >
-                  <header>انشاء حساب</header>
-                </div>
-                <div class="two-forms">
-                  <div class="input-box">
-                    <input
-                      type="text"
-                      class="input-field"
-                      placeholder="الاسم الاول"
-                    />
-                    <i class="bx bx-user"></i>
-                  </div>
-                  <div class="input-box">
-                    <input
-                      type="text"
-                      class="input-field"
-                      placeholder="الاسم الاخير"
-                    />
-                    <i class="bx bx-user"></i>
-                  </div>
-                </div>
-                <div class="input-box">
-                  <input type="text" class="input-field" placeholder="الايميل" />
-                  <i class="bx bx-envelope"></i>
-                </div>
-                <div class="input-box">
-                  <input
-                    type="password"
-                    class="input-field"
-                    placeholder="كلمة السر"
-                  />
-                  <i class="bx bx-lock-alt"></i>-->
-            <!-- </div>
-             <div class="input-box">
-               <input type="submit" class="submit" value="تسجيل الدخول" />
-             </div>
-             <div class="two-col">
-               <div class="one">
-                 <input type="checkbox" id="register-check" />
-                 <label for="register-check">تدكر</label>
-               </div>
-               <div class="two">
-                 <label><a href="#">Terms & conditions</a></label>
-               </div>
-             </div>
-           </div>
-         </div>-->
-
-            <!--  <div class="form-container">
-             <form action="">
-                <div class="input-box">
-                  <span>location</span>
-                  <input type="search" name="" id="" placeholder="search places" />
-                </div>
-                <div class="input-box">
-                  <span>pick-up date</span>
-                  <input type="date" name="" id="" />
-                </div>
-                <div class="input-box">
-                  <span>Return date</span>
-                  <input type="date" name="" id="" />
-                </div>
-                <input type="submit" name="" id="" class="btn" />
-              </form>
-            </div>-->
     </section>
     <!--Ride-->
     <section class="ride" id="service">
@@ -188,10 +76,7 @@
     <!--booking steps-->
 
 
-    <!--services-->
-    <style>
 
-    </style>
     <section class="services" id="services">
         <div class="heading">
             <span>من عروض سياراتنا </span>
@@ -219,29 +104,23 @@
     <section class="about" id="about">
         <div class="heading">
             <span> من نحن</span>
-            <h1>عن الموقع</h1>
         </div>
         <div class="about-container">
             <div class="about-img">
-                <img src="{{ asset('landing/img/Aboutiamge.jpg') }}" alt=""/>
+                <img src="{{asset('landing/img/1.jpg')}}" alt="" />
             </div>
             <div class="about-text">
                 <p>
-                    يحرص اجرلى على ضمان مسايرة خدماتها للحداثة وسلاسة الاستخدام باعتماد
-                    أحدث التقنيات وتخصيص الخدمات، ليحظى عملائنا بتجربة تتخطى توقعاتهم.
-                    يسخر اجرلى الخبرة المحلية لمجموعة سيرا لتوفر لعملائها المنفعة
-                    القصوى والقيمة من خلال خدمات التأجير الذكية والمرنة
-                    للسيارات  وحلول التأجير للمؤسسات والجهات الحكومية
-
+                    “ أجّرلي ” عبارة عن موقع ومنظومة إلكترونية يهدف إلى  تسهيل عمليات تأجير السيارات للمستخدمين .  فالنظام يتضمن ميزات عديدة: منها سهولة الوصول إلى مجموعة متنوعة من السيارات المتاحة للتأجير ويوفر كروت شحن لشحن رصيد في حسابات المستخدمين وكذلك يتيح النظام ميزة صيانة السيارات وتحديد مواقع التسليم والإستلام عبر خرائط قوقل لتسهيل عملية التواصل بين العملاء والمسؤولين .
+                    يوفر النظام عدة فروع تشمل اكثر من مدينة ويمكن لمدراء الفروع (الموظفين) إدارة السيارات وعمليات الحجز بكفاءة
                 </p>
 
             </div>
         </div>
-    </section>
-    <!--massge and vision-->
+    </section>    <!--massge and vision-->
     <section class="massge" id="massge">
         <div class="heading">
-            <span>الرؤية والرسالة</span>
+            <span>الررؤية والرسالة</span>
 
         </div>
         <div class="about-container2">
@@ -250,18 +129,16 @@
                 <div class="title">
                     الرسالة
                 </div>
-                <p><span>تحسين مستويات الراحة</span>
-                    و
-                    <span> زيادة إرتباط</span>
-                    وولاء ء من خلال توفير أسطول حديث وتعزيز الابتكار وتميز الخدمات في قطاع و</p>
+                <p>
+                    نهدف إلى بناء موقع ومنظومة إلكترونية  تجمع بين المسؤولين ومدراء الفروع والعملاء بشكل فعال، موفرة خدمات مريحة وموثوقة تجعل عملية الحجز وتأجير السيارات أمرًا سهلاً وممتعًا للجميع.
+                </p>
             </div>
             <div class="vision">
                 <div class="title">
                     الررؤية
                 </div>
-                <p><span>إعادة تصميم</span>
-                    كيفية تنقل الأفراد والمؤسسات في جميع أنحاء البلاد من خلال <span>الابتكار الرقمي</span> في قطاع النقل
-                    البري.
+                <p>
+                    نحن نسعى إلى توفير تجربة سلسة ومبتكرة لمستخدمين نظام أجَرلي  الذي يلبي احتياجات العملاء بكفاءة عالية.
                 </p>
             </div>
         </div>

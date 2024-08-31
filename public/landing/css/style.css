@@ -2,9 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 :root{
-    
 
-  
+
+
     --main-color: #20c997;
     --orange:#ff7800;
     --black:#130f40;
@@ -17,7 +17,7 @@
 
 
 html{
-    font-size: 62.5%;
+    font-size: 52%;
     overflow-x: hidden;
     scroll-behavior: smooth;
     scroll-padding-top: 7rem;
@@ -69,7 +69,7 @@ html{
     align-items: center;
     justify-content: space-between;
     padding:2rem 9%;
-    transition: top 0.3s; 
+    transition: top 0.3s;
     box-shadow: var(--box-shadow);
     background-color: rgba(39, 39, 39, 0.4);
 }
@@ -133,7 +133,7 @@ html{
 
 .header .navbar:hover ul.dropdown {
     display: block;
-    
+
 }
 
 .header .icons div{
@@ -141,7 +141,7 @@ html{
     width: 4.5rem;
     line-height: 4.5rem;
     border-radius: .5rem;
-    
+
     color:#fff;
     font-size: 2rem;
     margin-left: .3rem;
@@ -186,7 +186,7 @@ html{
     padding:0 1.5rem;
     font-family: "Alexandria", sans-serif;
     border: #666;
-    
+
 }
 
 .header .search-form label{
@@ -271,7 +271,7 @@ html{
 
 .header .login-form{
     position: absolute;
-    top:110%; 
+    top:110%;
     left:-110%;
     width:35rem;
     box-shadow: var(--box-shadow);

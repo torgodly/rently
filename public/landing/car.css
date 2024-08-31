@@ -1,120 +1,120 @@
 .home-two {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  background: url(img/kia_EV6_2024_mep_dynamic_hero_XL.jpg);
-  background-repeat: no-repeat;
-  background-position: center ;
-  background-size: cover;
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  animation: changeTmage 20s linear infinite;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: url(img/1.jpg);
+    background-repeat: no-repeat;
+    background-position: center ;
+    background-size: cover;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    animation: changeTmage 20s linear infinite;
 
- 
+
 }
 .home-two::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 
 }
 
 .home1::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 .home2::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 .home3::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 .home4::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 .home5::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
 }
 .book::before {
-  content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 180%;
-background-color: rgba(0,0,0,0.6);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180%;
+    background-color: rgba(0,0,0,0.6);
 }
 
 
 @keyframes changeTmage {
-  0% {
-    background-image: url(img/2.jpg);
-  
-  }
-  25% {
-    background-image: url(img/kia_EV6_2024_mep_dynamic_hero_XL.jpg);
-  }
-  50% {
-    background-image: url(img/21839.jpg);
-  }
-  75% {
-    background-image: url(img/3.jpg);
-  }
-  100% {
-    background-image: url(img/1.jpg);
-  }
+    0% {
+        background-image: url(img/1.jpg);
+
+    }
+    25% {
+        background-image: url(img/2.jpg);
+    }
+    50% {
+        background-image: url(img/3.jpg);
+    }
+    75% {
+        background-image: url(img/4.jpg);
+    }
+    100% {
+        background-image: url(img/5.jpg);
+    }
 }
 
 /* info section*/
 .info_section .row .col-md-3 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .info_section .info_logo {
-  align-items: center;
+    align-items: center;
 }
 
 .info_section .info_form .social_box {
-  justify-content: center;
+    justify-content: center;
 }
 
 .info_section .info_form .social_box a {
-  margin: 0 5px;
+    margin: 0 5px;
 }
