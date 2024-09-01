@@ -57,11 +57,7 @@
                     <x-primary-button class=" w-full flex justify-center items-center">
                         {{ __('Log in') }}
                     </x-primary-button>
-                    <x-secondary-button class=" w-full flex justify-center items-center">
-                        <a href="{{ route('register') }}">
-                            {{ __('Register') }}
-                        </a>
-                    </x-secondary-button>
+
                 </div>
             </form>
 
