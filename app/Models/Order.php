@@ -56,7 +56,6 @@ class Order extends Model
                 ->searchable(),
             TextColumn::make('days_booked')
                 ->translateLabel()
-                ->numeric()
                 ->sortable(),
 
             TextColumn::make('status')
@@ -282,7 +281,7 @@ class Order extends Model
 
     public function getDaysBookedAttribute()
     {
-        return Carbon::parse($this->pickup_date)->diffInDays(Carbon::parse($this->return_date)) + 1;
+        return Carbon::parse($this->pickup_date->format('Y-m-d'))->diffInDays(Carbon::parse($this->return_date->format('Y-m-d'))) ;
     }
 
     public function Cancelled($reason): void
