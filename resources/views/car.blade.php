@@ -68,7 +68,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <span class="text-2xl">${{ (int) $record->price_per_day }}</span>
+                                        <span class="text-2xl">د.ل{{ (int) $record->price_per_day }}</span>
                                         <span class="text-sm">
                                             {{ round(($record->price_per_day - (int) $record->price_per_day) * 100) }}.
                                         </span>
