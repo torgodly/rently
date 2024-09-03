@@ -56,12 +56,25 @@
     </nav>
 
 
+    @guest
+        <div style="display: flex; align-items: center; gap: 5px">  <!-- Wrap the links in a div to control spacing -->
+            <a href="{{ route('login') }}"
+               style="background-color: var(--main-color); color: #fff; padding: 10px 20px; border: none; border-radius: 6px; text-decoration: none; font-size: 16px;">تسجيل
+                الدخول</a>
+            <a href="{{ route('register') }}"
+               style="background-color: #221f1f; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; text-decoration: none; font-size: 16px;">إنشاء
+                حساب</a>
+        </div>
+    @endguest
+    @auth
+        <div style="display: flex; align-items: center; gap: 5px">  <!-- Wrap the links in a div to control spacing -->
+            <a href="{{ auth()->user()->dashboardLink() }}"
+               style="background-color: var(--main-color); color: #fff; padding: 10px 20px; border: none; border-radius: 6px; text-decoration: none; font-size: 16px;">
+                لوحة التحكم
+            </a>
 
-
-    <div style="display: flex; align-items: center; gap: 5px">  <!-- Wrap the links in a div to control spacing -->
-        <a href="{{ route('login') }}" style="background-color: var(--main-color); color: #fff; padding: 10px 20px; border: none; border-radius: 6px; text-decoration: none; font-size: 16px;">تسجيل الدخول</a>
-        <a href="{{ route('register') }}" style="background-color: #221f1f; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; text-decoration: none; font-size: 16px;">إنشاء حساب</a>
-    </div>
+        </div>
+    @endauth
 
 </header>
 

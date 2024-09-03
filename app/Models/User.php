@@ -201,4 +201,16 @@ class User extends Authenticatable implements HasAvatar, FilamentUser, MustVerif
             'password' => 'hashed',
         ];
     }
+
+    //dashboardLink
+    public function dashboardLink()
+    {
+        if ($this->isAdmin()) {
+            return '/admin';
+        }
+        if ($this->isManager()) {
+            return '/office';
+        }
+        return '/user';
+    }
 }
