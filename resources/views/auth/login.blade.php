@@ -43,12 +43,10 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-4">
-                    @if (Route::has('password.request'))
                         <a class="underline text-sm text-primary hover:text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                           href="{{ route('password.request') }}">
+                           href="/user/password-reset/request">
                             {{ __('Forgot your password?') }}
                         </a>
-                    @endif
 
 
                 </div>
@@ -57,7 +55,6 @@
                     <x-primary-button class=" w-full flex justify-center items-center">
                         {{ __('Log in') }}
                     </x-primary-button>
-
                 </div>
             </form>
 

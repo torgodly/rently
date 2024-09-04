@@ -52,7 +52,7 @@
         }
 
         :root {
-            --main-color: #f1db25;
+            --main-color: #20c997;
             --second-color: #1c1c1c;
             --text-color: #110f0f;
             --gradient: linear-gradient(#1c1c1c);

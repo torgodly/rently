@@ -20,7 +20,7 @@
                         <img class="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                              src="{{ $record->hero }}">
                         @if(!$record->available)
-                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-xl">
+                            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-xl z-50">
                                 <span class="text-xl font-bold text-white">Not Available</span>
                             </div>
                         @endif
